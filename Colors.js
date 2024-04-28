@@ -1,7 +1,6 @@
 import { Appearance, StyleSheet } from "react-native"
 
-export const theme = Appearance.getColorScheme() === 'dark' ? 'black' : 'white'
-export const textColor = theme
+export const theme = 'black'
 export const backgroundColor = theme === 'black' ? 'white' : 'black'
 
 export const Styles = StyleSheet.create({
@@ -19,14 +18,23 @@ export const Styles = StyleSheet.create({
         fontWeight: 'bold',
         color: theme === 'black' ? '#fff' : '#000',
     },
-    InputBox: {
-        backgroundColor: theme === 'black' ? '#fff' : '#000',
-        width: '100%',
-        alignContent: 'stretch',
-        justifyContent: 'center',
-        color: theme === 'black' ? '#000' : '#fff',
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-        borderRadius: 25,
+    MainSubText: {
+        textAlign: 'center',
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: theme === 'black' ? '#fff' : '#000',
     },
+    InputBox: {
+        width: '95%',
+        borderWidth: 1,
+        borderTopColor: theme === 'black' ? '#000' : '#fff',
+        borderLeftColor: theme === 'black' ? '#000' : '#fff',
+        borderRightColor: theme === 'black' ? '#000' : '#fff',
+        borderBottomColor: theme === 'black' ? '#fff' : '#000',
+    },
+    Input: {
+        width: '100%',
+        color: theme === 'black' ? '#fff' : '#000',
+        alignSelf: 'center',
+    }
 })

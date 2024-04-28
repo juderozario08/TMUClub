@@ -1,47 +1,53 @@
 import React, { useState } from 'react'
-import { SafeAreaView, View, Text, Pressable, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native'
 import { Styles } from '../Colors';
 
 
-const Login = () => {
+const Login = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-
+    const handleLogin = () => {
+        console.log('Email:', email);
+        console.log('Password:', password)
+    }
     return (
-        <SafeAreaView style={Styles.MainContainer}>
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={Styles.MainContainer}
+            className='pt-20'>
             <Text style={Styles.MainText}>Welcome To </Text>
-            <Text style={Styles.MainText}>TMU Dance Club</Text>
-            <View className='w-full gap-5 py-5 mt-6'>
-                <View>
+            <Text className='mb-5' style={Styles.MainText}>TMU Dance Club</Text>
+            <View className='w-full gap-5 py-5 px-2 '>
+                <View style={Styles.InputBox} className='flex-row justify-self-start'>
+                    <Text className='text-gray-400 align-middle self-center'> {'Email: '} </Text>
                     <TextInput
-                        style={Styles.InputBox}
-                        onChangeText={text => setEmail(text)}
+                        style={Styles.Input}
+                        onChangeText={setEmail}
                         value={email}
-                        placeholder='Email:'
-                        placeholderTextColor='gray'
+                        placeholderTextColor='lightgray'
                         autoCapitalize='none'
                         autoComplete='email'
                     />
                 </View>
-                <View className=''>
+                <View style={Styles.InputBox} className='flex-row justify-self-start'>
+                    <Text className='text-gray-400 align-middle self-center'> {'Password: '} </Text>
                     <TextInput
-                        style={Styles.InputBox}
-                        onChangeText={text => setPassword(text)}
+                        style={Styles.Input}
+                        onChangeText={setPassword}
                         value={password}
-                        placeholder='Password: '
-                        placeholderTextColor='gray'
+                        placeholderTextColor='lightgray'
+                        secureTextEntry={true}
                         autoCapitalize='none'
                         autoComplete='password'
                     />
                 </View>
             </View>
-            <View className='w-full px-10 mb-12'>
+
+            <View className='w-full px-10 mb-10'>
                 <TouchableOpacity
                     className='bg-sky-600 rounded-3xl py-3 w-full'
-                    onPress={() => {
-                        console.log('Login Pressed')
-                    }}
+                    onPress={handleLogin}
                 >
                     <Text className='text-white text-center'>Login</Text>
                 </TouchableOpacity>
@@ -49,12 +55,12 @@ const Login = () => {
             <View className='align-middle justify-center flex-row'>
                 <Text className='text-white text-[14px]'>Don't have an account?{' '}</Text>
                 <TouchableOpacity onPress={() => {
-                    console.log('Sign Up Pressed')
+                    navigation.navigate('SignUp')
                 }}>
                     <Text className='text-[14px] text-sky-600'>Sign Up</Text>
                 </TouchableOpacity>
             </View>
-        </SafeAreaView>
+        </KeyboardAvoidingView>
     )
 }
 
