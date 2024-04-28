@@ -50,12 +50,9 @@ const SignUp = ({ navigation }) => {
     const validatePassword = (text) => {
         setPassword(text);
         setPasswordError(false);
-        if (
-            text.length < 8 ||
-            !text.match(
-                /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/,
-            )
-        ) {
+        const passwordRegex =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if (text.length < 8 || !text.match(passwordRegex)) {
             setPasswordError(true);
         }
     };
@@ -64,6 +61,10 @@ const SignUp = ({ navigation }) => {
     };
     const validateConfirmPassword = (text) => {
         setConfirmPassword(text);
+        setConfirmPasswordError(false);
+        if (text !== password) {
+            setConfirmPasswordError(true);
+        }
     };
     const validateAddress = (text) => {
         setAddress(text);

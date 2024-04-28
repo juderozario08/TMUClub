@@ -16,7 +16,13 @@
             "**/*"
         ],
         "ios": {
-            "supportsTablet": true
+            "supportsTablet": true,
+            "bundleIdentifier": "com.danceclub",
+            "infoPlist": {
+                "UIBackgroundModes": [
+                    "audio"
+                ]
+            }
         },
         "android": {
             "adaptiveIcon": {
