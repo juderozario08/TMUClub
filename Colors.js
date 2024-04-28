@@ -25,16 +25,23 @@ export const Styles = StyleSheet.create({
         color: theme === 'black' ? '#fff' : '#000',
     },
     InputBox: {
+        flexDirection: 'row',
         width: '95%',
         borderWidth: 1,
         borderTopColor: theme === 'black' ? '#000' : '#fff',
         borderLeftColor: theme === 'black' ? '#000' : '#fff',
         borderRightColor: theme === 'black' ? '#000' : '#fff',
         borderBottomColor: theme === 'black' ? '#fff' : '#000',
+        alignItems: 'stretch',
     },
     Input: {
         width: '100%',
         color: theme === 'black' ? '#fff' : '#000',
         alignSelf: 'center',
+    },
+    Feather: {
+        alignSelf: 'center',
+        position: 'absolute',
+        right: 0,
     }
 })

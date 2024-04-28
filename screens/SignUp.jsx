@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { KeyboardAvoidingView, View, TextInput, Text, Platform, TouchableOpacity } from "react-native"
 import { Styles } from '../Colors';
-
+import { X, CheckCircle, } from 'react-native-feather';
 
 const SignUp = ({ navigation }) => {
     const [username, setUsername] = useState('');
@@ -10,12 +10,12 @@ const SignUp = ({ navigation }) => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [address, setAddress] = useState('');
-    const [usernameError, setUsernameError] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
-    const [confirmPasswordError, setConfirmPasswordError] = useState('');
-    const [phoneNumberError, setPhoneNumberError] = useState('');
-    const [addressError, setAddressError] = useState('');
+    const [usernameError, setUsernameError] = useState(false);
+    const [emailError, setEmailError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+    const [phoneNumberError, setPhoneNumberError] = useState(false);
+    const [addressError, setAddressError] = useState(false);
     const [error, setError] = useState('');
 
     const handleSignup = () => {
@@ -26,7 +26,31 @@ const SignUp = ({ navigation }) => {
         console.log('Phone Number:', phoneNumber);
         console.log('Address:', address);
     }
+    const validateEmail = (text) => {
+        setEmail(text);
+        setEmailError(false)
+        if (!text.toLowerCase().trim().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
+            setEmailError(true)
+    }
+    const validateUsername = (text) => {
+        setUsername(text);
+    }
+    const validatePassword = (text) => {
+        setPassword(text);
+        setPasswordError(false);
+        if (text.length < 8 || !text.match(/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/))
+            setPasswordError(true)
 
+    }
+    const validatePhoneNumber = (text) => {
+        setPhoneNumber(text);
+    }
+    const validateConfirmPassword = (text) => {
+        setConfirmPassword(text);
+    }
+    const validateAddress = (text) => {
+        setAddress(text);
+    }
     const inputBoxes = [
         {
             placeholder: 'Username: ',
@@ -34,7 +58,8 @@ const SignUp = ({ navigation }) => {
             value: username,
             secureTextEntry: false,
             keyboardType: 'default',
-            onChangeText: text => setUsername(text),
+            error: usernameError,
+            onChangeText: text => validateUsername(text),
         },
         {
             placeholder: 'Email: ',
@@ -42,7 +67,8 @@ const SignUp = ({ navigation }) => {
             value: email,
             secureTextEntry: false,
             keyboardType: 'email-address',
-            onChangeText: text => setEmail(text),
+            error: emailError,
+            onChangeText: text => validateEmail(text),
         },
         {
             placeholder: 'Password: ',
@@ -50,7 +76,8 @@ const SignUp = ({ navigation }) => {
             value: password,
             secureTextEntry: true,
             keyboardType: 'default',
-            onChangeText: text => setPassword(text),
+            error: passwordError,
+            onChangeText: text => validatePassword(text),
         },
         {
             placeholder: 'Confirm Password: ',
@@ -58,7 +85,8 @@ const SignUp = ({ navigation }) => {
             value: confirmPassword,
             secureTextEntry: true,
             keyboardType: 'default',
-            onChangeText: text => setConfirmPassword(text),
+            error: confirmPasswordError,
+            onChangeText: text => validateConfirmPassword(text),
         },
         {
             placeholder: 'Phone Number: ',
@@ -66,7 +94,8 @@ const SignUp = ({ navigation }) => {
             value: phoneNumber,
             secureTextEntry: false,
             keyboardType: 'phone-pad',
-            onChangeText: text => setPhoneNumber(text),
+            error: phoneNumberError,
+            onChangeText: text => validatePhoneNumber(text),
         },
         {
             placeholder: 'Address: ',
@@ -74,7 +103,8 @@ const SignUp = ({ navigation }) => {
             value: address,
             secureTextEntry: false,
             keyboardType: 'default',
-            onChangeText: text => setAddress(text),
+            error: addressError,
+            onChangeText: text => validateAddress(text),
         },
     ]
     return (
@@ -86,16 +116,24 @@ const SignUp = ({ navigation }) => {
                 {
                     inputBoxes.map((inp, idx) => (
                         <View key={idx} style={Styles.InputBox} className='flex-row justify-self-start'>
-                            <Text className='text-gray-500 align-middle self-center'> {inp.placeholder} </Text>
                             <TextInput
                                 style={Styles.Input}
                                 onChangeText={inp.onChangeText}
                                 value={inp.value}
+                                placeholder={inp.placeholder}
+                                placeholderTextColor='darkgray'
                                 autoCapitalize='none'
                                 autoComplete={inp.autoComplete}
                                 keyboardType={inp.keyboardType}
                                 secureTextEntry={inp.secureTextEntry}
                             />
+                            {
+                                inp.value.length < 1 ? null : !inp.error ? (
+                                    <CheckCircle fill={'none'} stroke={'green'} style={Styles.Feather} />
+                                ) : (
+                                    <X fill={'none'} stroke={'red'} style={Styles.Feather} />
+                                )
+                            }
                         </View>
                     ))
                 }
