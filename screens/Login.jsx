@@ -19,7 +19,7 @@ const Login = ({ navigation }) => {
             <Text className='mb-5' style={Styles.MainText}>TMU Dance Club</Text>
             <View className='w-full gap-5 py-5 px-2 '>
                 <View style={Styles.InputBox} className='flex-row justify-self-start'>
-                    <Text className='text-gray-400 align-middle self-center'> {'Email: '} </Text>
+                    <Text style={Styles.InputBoxText}>{'Email: '}</Text>
                     <TextInput
                         style={Styles.Input}
                         onChangeText={setEmail}
@@ -30,7 +30,7 @@ const Login = ({ navigation }) => {
                     />
                 </View>
                 <View style={Styles.InputBox} className='flex-row justify-self-start'>
-                    <Text className='text-gray-400 align-middle self-center'> {'Password: '} </Text>
+                    <Text style={Styles.InputBoxText}>{'Password: '}</Text>
                     <TextInput
                         style={Styles.Input}
                         onChangeText={setPassword}

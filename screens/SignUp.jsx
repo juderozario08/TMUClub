@@ -8,7 +8,7 @@ import {
     View,
 } from "react-native";
 import { Styles } from "../Colors";
-import { CheckCircle, X } from "react-native-feather";
+import { CheckCircle, Eye, EyeOff, X } from "react-native-feather";
 
 const SignUp = ({ navigation }) => {
     const [username, setUsername] = useState("");
@@ -16,58 +16,87 @@ const SignUp = ({ navigation }) => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
-    const [address, setAddress] = useState("");
     const [usernameError, setUsernameError] = useState(false);
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const [confirmPasswordError, setConfirmPasswordError] = useState(false);
     const [phoneNumberError, setPhoneNumberError] = useState(false);
-    const [addressError, setAddressError] = useState(false);
-    const [error, setError] = useState("");
+    const [error, setError] = useState(false);
+    const [passwordShow, setPasswordShow] = useState(false);
+    const [confirmPasswordShow, setConfirmPasswordShow] = useState(false);
+
+    const determineEye = (err, show) => {
+        return !err ? (!show ? (
+            <Eye
+                fill={"none"}
+                stroke={"green"}
+            />
+        ) : (
+            <EyeOff
+                fill={"none"}
+                stroke={"green"}
+            />
+        ))
+            : !show ? (
+                <Eye
+                    fill={"none"}
+                    stroke={"red"}
+                />
+            ) : (
+                <EyeOff
+                    fill={"none"}
+                    stroke={"red"}
+                />
+            )
+    }
 
     const handleSignup = () => {
-        console.log("Username:", username);
-        console.log("Email:", email);
-        console.log("Password:", password);
-        console.log("Confirm password:", confirmPassword);
-        console.log("Phone Number:", phoneNumber);
-        console.log("Address:", address);
+        if (error) {
+            setError(true);
+        }
+        navigation.navigate("Login");
     };
+
     const validateEmail = (text) => {
         setEmail(text);
         setEmailError(false);
+        const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (
-            !text.toLowerCase().trim().match(
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-            )
+            !text.toLowerCase().trim().match(emailRegex)
         ) {
             setEmailError(true);
         }
     };
     const validateUsername = (text) => {
         setUsername(text);
+        setUsernameError(false);
+        if (text.length < 3) {
+            setUsernameError(true);
+        }
     };
     const validatePassword = (text) => {
-        setPassword(text);
+        setPassword(text.trim());
         setPasswordError(false);
         const passwordRegex =
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        if (text.length < 8 || !text.match(passwordRegex)) {
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+        if (text.length < 8 || !text.trim().match(passwordRegex)) {
             setPasswordError(true);
         }
     };
     const validatePhoneNumber = (text) => {
-        setPhoneNumber(text);
-    };
-    const validateConfirmPassword = (text) => {
-        setConfirmPassword(text);
-        setConfirmPasswordError(false);
-        if (text !== password) {
-            setConfirmPasswordError(true);
+        setPhoneNumber(text.trim());
+        setPhoneNumberError(false);
+        const phoneNumberRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+        if (!text.trim().match(phoneNumberRegex)) {
+            setPhoneNumberError(true);
         }
     };
-    const validateAddress = (text) => {
-        setAddress(text);
+    const validateConfirmPassword = (text) => {
+        setConfirmPassword(text.trim());
+        setConfirmPasswordError(false);
+        if (text.trim() !== password) {
+            setConfirmPasswordError(true);
+        }
     };
     const inputBoxes = [
         {
@@ -77,34 +106,8 @@ const SignUp = ({ navigation }) => {
             secureTextEntry: false,
             keyboardType: "default",
             error: usernameError,
+            errorText: "Username must be at least 3 characters long.",
             onChangeText: (text) => validateUsername(text),
-        },
-        {
-            placeholder: "Email: ",
-            autoComplete: "email",
-            value: email,
-            secureTextEntry: false,
-            keyboardType: "email-address",
-            error: emailError,
-            onChangeText: (text) => validateEmail(text),
-        },
-        {
-            placeholder: "Password: ",
-            autoComplete: "password",
-            value: password,
-            secureTextEntry: true,
-            keyboardType: "default",
-            error: passwordError,
-            onChangeText: (text) => validatePassword(text),
-        },
-        {
-            placeholder: "Confirm Password: ",
-            autoComplete: "password",
-            value: confirmPassword,
-            secureTextEntry: true,
-            keyboardType: "default",
-            error: confirmPasswordError,
-            onChangeText: (text) => validateConfirmPassword(text),
         },
         {
             placeholder: "Phone Number: ",
@@ -113,16 +116,18 @@ const SignUp = ({ navigation }) => {
             secureTextEntry: false,
             keyboardType: "phone-pad",
             error: phoneNumberError,
+            errorText: "Please enter a valid phone number.",
             onChangeText: (text) => validatePhoneNumber(text),
         },
         {
-            placeholder: "Address: ",
-            autoComplete: "street-address",
-            value: address,
+            placeholder: "Email: ",
+            autoComplete: "email",
+            value: email,
             secureTextEntry: false,
-            keyboardType: "default",
-            error: addressError,
-            onChangeText: (text) => validateAddress(text),
+            keyboardType: "email-address",
+            error: emailError,
+            errorText: "Please enter a valid email address.",
+            onChangeText: (text) => validateEmail(text),
         },
     ];
     return (
@@ -130,44 +135,109 @@ const SignUp = ({ navigation }) => {
             style={Styles.MainContainer}
             behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
-            <Text style={Styles.MainText} className="mb-5">Please Sign Up</Text>
-            <View className="w-full gap-5 py-5 px-2 ">
+            <Text style={Styles.MainText} className="mb-2 mt-16">Please Sign Up</Text>
+            <View className="w-full gap-6 pt-5 px-2">
                 {inputBoxes.map((inp, idx) => (
+                    <View key={idx}>
+                        <View
+
+                            style={Styles.InputBox}
+                            className="flex-row justify-self-start"
+                        >
+                            <Text style={Styles.InputBoxText}>{inp.placeholder}</Text>
+                            <TextInput
+                                style={Styles.Input}
+                                onChangeText={inp.onChangeText}
+                                value={inp.value}
+                                autoCapitalize="none"
+                                autoComplete={inp.autoComplete}
+                                keyboardType={inp.keyboardType}
+                                secureTextEntry={inp.secureTextEntry}
+                            />
+                            {inp.value.length < 1 ? null : !inp.error
+                                ? (
+                                    <CheckCircle
+                                        fill={"none"}
+                                        stroke={"green"}
+                                        style={Styles.Feather}
+                                    />
+                                )
+                                : (<X fill={"none"} stroke={"red"} style={Styles.Feather} />)
+                            }
+                        </View>
+                        <View>
+                            {
+                                inp.value && inp.error ? <Text className="text-red-500 left-1">{inp.errorText}</Text> : null
+                            }
+                        </View>
+                    </View>
+                ))}
+
+                {/*This part is for the passwords*/}
+                <View>
                     <View
-                        key={idx}
                         style={Styles.InputBox}
                         className="flex-row justify-self-start"
                     >
+                        <Text style={Styles.InputBoxText}>{'Password: '}</Text>
                         <TextInput
                             style={Styles.Input}
-                            onChangeText={inp.onChangeText}
-                            value={inp.value}
-                            placeholder={inp.placeholder}
-                            placeholderTextColor="darkgray"
+                            onChangeText={validatePassword}
+                            value={password}
                             autoCapitalize="none"
-                            autoComplete={inp.autoComplete}
-                            keyboardType={inp.keyboardType}
-                            secureTextEntry={inp.secureTextEntry}
+                            autoComplete={"password"}
+                            keyboardType={"default"}
+                            secureTextEntry={passwordShow}
                         />
-                        {inp.value.length < 1 ? null : !inp.error
-                            ? (
-                                <CheckCircle
-                                    fill={"none"}
-                                    stroke={"green"}
-                                    style={Styles.Feather}
-                                />
-                            )
-                            : <X fill={"none"} stroke={"red"} style={Styles.Feather} />}
+                        <TouchableOpacity style={Styles.Feather} onPress={() => setPasswordShow(!passwordShow)}>
+                            {password.length < 1 ? null : determineEye(passwordError, passwordShow)}
+                        </TouchableOpacity>
                     </View>
-                ))}
+                    <View>
+                        {
+                            password && passwordError ? <Text className="text-red-500 left-1">{"Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."}</Text> : null
+                        }
+                    </View>
+                </View>
+                <View>
+                    <View
+                        style={Styles.InputBox}
+                        className="flex-row justify-self-start"
+                    >
+                        <Text style={Styles.InputBoxText}>{'Confirm Password: '}</Text>
+                        <TextInput
+                            style={Styles.Input}
+                            onChangeText={validateConfirmPassword}
+                            value={confirmPassword}
+                            autoCapitalize="none"
+                            autoComplete={"password"}
+                            keyboardType={"default"}
+                            secureTextEntry={confirmPasswordShow}
+                        />
+                        <TouchableOpacity
+                            style={Styles.Feather}
+                            onPress={() => setConfirmPasswordShow(!confirmPasswordShow)}
+                        >
+                            {confirmPassword.length < 1 ? null : determineEye(confirmPasswordError, confirmPasswordShow)}
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        {
+                            confirmPassword && confirmPasswordError ? <Text className="text-red-500 left-1">{"Password must match"}</Text> : null
+                        }
+                    </View>
+                </View>
             </View>
             <View className="w-full px-10 mb-10">
                 <TouchableOpacity
-                    className="bg-sky-600 rounded-3xl py-3 w-full"
+                    className="bg-sky-600 rounded-3xl py-3 w-full mt-10"
                     onPress={handleSignup}
                 >
                     <Text className="text-white text-center">Sign Up</Text>
                 </TouchableOpacity>
+                {
+                    error ? <Text className="text-red-500 text-center pt-3"> There was an error. Please try again.</Text> : null
+                }
             </View>
             <View className="align-middle justify-center flex-row">
                 <Text className="text-white text-[14px]">
