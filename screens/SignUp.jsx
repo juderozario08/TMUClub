@@ -7,60 +7,60 @@ import {
     TouchableOpacity,
     View,
 } from "react-native";
-import { Styles } from "../Colors";
+import { Styles } from "../Colors.js";
 import { CheckCircle, Eye, EyeOff, X } from "react-native-feather";
+import axios from "axios";
+import { uri } from "../utils/utils.js";
 
 const SignUp = ({ navigation }) => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [usernameError, setUsernameError] = useState(false);
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
-    const [confirmPasswordError, setConfirmPasswordError] = useState(false);
     const [phoneNumberError, setPhoneNumberError] = useState(false);
     const [error, setError] = useState(false);
     const [passwordShow, setPasswordShow] = useState(false);
-    const [confirmPasswordShow, setConfirmPasswordShow] = useState(false);
 
     const determineEye = (err, show) => {
-        return !err ? (!show ? (
-            <Eye
-                fill={"none"}
-                stroke={"green"}
-            />
-        ) : (
-            <EyeOff
-                fill={"none"}
-                stroke={"green"}
-            />
-        ))
-            : !show ? (
+        const col = err ? "red" : "green";
+        return show
+            ? (
                 <Eye
                     fill={"none"}
-                    stroke={"red"}
-                />
-            ) : (
-                <EyeOff
-                    fill={"none"}
-                    stroke={"red"}
+                    stroke={col}
                 />
             )
-    }
+            : (
+                <EyeOff
+                    fill={"none"}
+                    stroke={col}
+                />
+            );
+    };
 
-    const handleSignup = () => {
-        if (error) {
+    const handleSignup = async () => {
+        try {
+            await axios.post(`${uri}/users`, {
+                name: username,
+                email: email,
+                password: password,
+                phoneNumber: phoneNumber,
+            });
+            navigation.navigate("Login");
+        } catch (err) {
             setError(true);
+            return;
         }
-        navigation.navigate("Login");
     };
 
     const validateEmail = (text) => {
         setEmail(text);
         setEmailError(false);
-        const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const emailRegex =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (
             !text.toLowerCase().trim().match(emailRegex)
         ) {
@@ -78,7 +78,7 @@ const SignUp = ({ navigation }) => {
         setPassword(text.trim());
         setPasswordError(false);
         const passwordRegex =
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         if (text.length < 8 || !text.trim().match(passwordRegex)) {
             setPasswordError(true);
         }
@@ -86,21 +86,15 @@ const SignUp = ({ navigation }) => {
     const validatePhoneNumber = (text) => {
         setPhoneNumber(text.trim());
         setPhoneNumberError(false);
-        const phoneNumberRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+        const phoneNumberRegex =
+            /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
         if (!text.trim().match(phoneNumberRegex)) {
             setPhoneNumberError(true);
         }
     };
-    const validateConfirmPassword = (text) => {
-        setConfirmPassword(text.trim());
-        setConfirmPasswordError(false);
-        if (text.trim() !== password) {
-            setConfirmPasswordError(true);
-        }
-    };
     const inputBoxes = [
         {
-            placeholder: "Username: ",
+            placeholder: "Full Name: ",
             autoComplete: "username",
             value: username,
             secureTextEntry: false,
@@ -140,7 +134,6 @@ const SignUp = ({ navigation }) => {
                 {inputBoxes.map((inp, idx) => (
                     <View key={idx}>
                         <View
-
                             style={Styles.InputBox}
                             className="flex-row justify-self-start"
                         >
@@ -162,13 +155,12 @@ const SignUp = ({ navigation }) => {
                                         style={Styles.Feather}
                                     />
                                 )
-                                : (<X fill={"none"} stroke={"red"} style={Styles.Feather} />)
-                            }
+                                : <X fill={"none"} stroke={"red"} style={Styles.Feather} />}
                         </View>
                         <View>
-                            {
-                                inp.value && inp.error ? <Text className="text-red-500 left-1">{inp.errorText}</Text> : null
-                            }
+                            {inp.value && inp.error
+                                ? <Text className="text-red-500 left-1">{inp.errorText}</Text>
+                                : null}
                         </View>
                     </View>
                 ))}
@@ -179,7 +171,7 @@ const SignUp = ({ navigation }) => {
                         style={Styles.InputBox}
                         className="flex-row justify-self-start"
                     >
-                        <Text style={Styles.InputBoxText}>{'Password: '}</Text>
+                        <Text style={Styles.InputBoxText}>{"Password: "}</Text>
                         <TextInput
                             style={Styles.Input}
                             onChangeText={validatePassword}
@@ -187,44 +179,25 @@ const SignUp = ({ navigation }) => {
                             autoCapitalize="none"
                             autoComplete={"password"}
                             keyboardType={"default"}
-                            secureTextEntry={passwordShow}
-                        />
-                        <TouchableOpacity style={Styles.Feather} onPress={() => setPasswordShow(!passwordShow)}>
-                            {password.length < 1 ? null : determineEye(passwordError, passwordShow)}
-                        </TouchableOpacity>
-                    </View>
-                    <View>
-                        {
-                            password && passwordError ? <Text className="text-red-500 left-1">{"Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."}</Text> : null
-                        }
-                    </View>
-                </View>
-                <View>
-                    <View
-                        style={Styles.InputBox}
-                        className="flex-row justify-self-start"
-                    >
-                        <Text style={Styles.InputBoxText}>{'Confirm Password: '}</Text>
-                        <TextInput
-                            style={Styles.Input}
-                            onChangeText={validateConfirmPassword}
-                            value={confirmPassword}
-                            autoCapitalize="none"
-                            autoComplete={"password"}
-                            keyboardType={"default"}
-                            secureTextEntry={confirmPasswordShow}
+                            secureTextEntry={!passwordShow}
                         />
                         <TouchableOpacity
                             style={Styles.Feather}
-                            onPress={() => setConfirmPasswordShow(!confirmPasswordShow)}
+                            onPress={() => setPasswordShow(!passwordShow)}
                         >
-                            {confirmPassword.length < 1 ? null : determineEye(confirmPasswordError, confirmPasswordShow)}
+                            {password.length < 1
+                                ? null
+                                : determineEye(passwordError, passwordShow)}
                         </TouchableOpacity>
                     </View>
                     <View>
-                        {
-                            confirmPassword && confirmPasswordError ? <Text className="text-red-500 left-1">{"Password must match"}</Text> : null
-                        }
+                        {password && passwordError
+                            ? (
+                                <Text className="text-red-500 left-1">
+                                    {"Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."}
+                                </Text>
+                            )
+                            : null}
                     </View>
                 </View>
             </View>
@@ -235,9 +208,13 @@ const SignUp = ({ navigation }) => {
                 >
                     <Text className="text-white text-center">Sign Up</Text>
                 </TouchableOpacity>
-                {
-                    error ? <Text className="text-red-500 text-center pt-3"> There was an error. Please try again.</Text> : null
-                }
+                {error
+                    ? (
+                        <Text className="text-red-500 text-center pt-3">
+                            There was an error. Please try again.
+                        </Text>
+                    )
+                    : null}
             </View>
             <View className="align-middle justify-center flex-row">
                 <Text className="text-white text-[14px]">
