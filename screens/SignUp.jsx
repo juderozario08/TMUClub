@@ -9,8 +9,8 @@ import {
 } from "react-native";
 import { Styles } from "../Colors.js";
 import { CheckCircle, Eye, EyeOff, X } from "react-native-feather";
-import axios from "axios";
 import { uri } from "../utils/utils.js";
+import axios from "axios";
 
 const SignUp = ({ navigation }) => {
     const [username, setUsername] = useState("");
@@ -41,19 +41,21 @@ const SignUp = ({ navigation }) => {
             );
     };
 
-    const handleSignup = async () => {
-        try {
-            await axios.post(`${uri}/users`, {
-                name: username,
-                email: email,
-                password: password,
-                phoneNumber: phoneNumber,
+    const handleSignup = () => {
+        const userData = {
+            name: username,
+            email: email,
+            password: password,
+            phoneNumber: phoneNumber,
+        };
+        axios.post(`http://10.0.0.26:3000/users`, userData)
+            .then((res) => {
+                console.log(res.data);
+                navigation.navigate("Login");
+            }).catch((err) => {
+                console.log(err);
+                setError(true);
             });
-            navigation.navigate("Login");
-        } catch (err) {
-            setError(true);
-            return;
-        }
     };
 
     const validateEmail = (text) => {

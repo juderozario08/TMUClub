@@ -13,7 +13,7 @@ mongoose.connect(process.env.DB_URL)
         console.log("Error: ", err);
     });
 
-app.use("/users", userRoute);
+app.use(userRoute);
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
