@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 require("../models/users");
 const User = mongoose.model("User");
 
@@ -20,10 +21,11 @@ router.post("/", async (req, res) => {
                 message: "A user with that email already exists.",
             });
         }
+        const encryptedPassword = await bcrypt.hash(password, 10);
         await User.create({
             name,
             email,
-            password,
+            password: encryptedPassword,
             phoneNumber,
         });
         res.status(201).send({

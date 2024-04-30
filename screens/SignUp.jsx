@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { Styles } from "../Colors.js";
 import { CheckCircle, Eye, EyeOff, X } from "react-native-feather";
-import { uri } from "../utils/utils.js";
+import { signUpURI } from "../utils/utils.js";
 import axios from "axios";
 
 const SignUp = ({ navigation }) => {
@@ -49,7 +49,7 @@ const SignUp = ({ navigation }) => {
             password: password,
             phoneNumber: phoneNumber,
         };
-        axios.post(`${uri}/signup`, userData).then((_) => {
+        axios.post(`${signUpURI}`, userData).then((_) => {
             Alert.alert("User created successfully.");
             navigation.navigate("Login");
         }).catch((err) => {
