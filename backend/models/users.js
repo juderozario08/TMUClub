@@ -18,6 +18,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    role: {
+        type: String,
+        default: "member",
+        roles: ["member", "coach", "treasurer"],
+    },
+    balance: {
+        type: Number,
+        default: 0,
+    },
 }, {
     collection: "User",
 });
