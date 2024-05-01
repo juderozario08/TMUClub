@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./screens/Login.jsx";
 import SignUp from "./screens/SignUp.jsx";
 import { StatusBar } from "expo-status-bar";
-import MemberScreen from "./screens/MemberScreen.jsx";
+import MemberScreen from "./screens/MemberScreens/MemberScreen.jsx";
 
 const Stack = createNativeStackNavigator();
 
