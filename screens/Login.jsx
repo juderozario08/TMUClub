@@ -11,11 +11,18 @@ import { Styles } from "../Colors.js";
 import axios from "axios";
 import { loginURI } from "../utils/utils.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Eye, EyeOff } from "react-native-feather";
 
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [passwordShow, setPasswordShow] = useState(false);
+    const determineEye = () => {
+        return passwordShow
+            ? <Eye color={"darkgray"} fill={"none"} />
+            : <EyeOff color={"darkgray"} fill={"none"} />;
+    };
     const handleLogin = () => {
         axios.post(`${loginURI}`, {
             email: email,
@@ -50,7 +57,7 @@ const Login = ({ navigation }) => {
                     <Text style={Styles.InputBoxText}>{"Email: "}</Text>
                     <TextInput
                         style={Styles.Input}
-                        onChangeText={setEmail}
+                        onChangeText={(text) => setEmail(text.trim())}
                         value={email}
                         placeholderTextColor="lightgray"
                         autoCapitalize="none"
@@ -64,13 +71,20 @@ const Login = ({ navigation }) => {
                         onChangeText={setPassword}
                         value={password}
                         placeholderTextColor="lightgray"
-                        secureTextEntry={true}
+                        secureTextEntry={!passwordShow}
                         autoCapitalize="none"
                         autoComplete="password"
                     />
+                    <TouchableOpacity
+                        style={Styles.Feather}
+                        onPress={() => {
+                            setPasswordShow(!passwordShow);
+                        }}
+                    >
+                        {determineEye()}
+                    </TouchableOpacity>
                 </View>
             </View>
-
             <View className="w-full px-10 mb-10">
                 <TouchableOpacity
                     className="bg-sky-600 rounded-3xl py-3 w-full"

@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
+    classes: {
+        type: [String],
+        default: [],
+    }
 }, {
     collection: "User",
 });

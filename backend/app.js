@@ -4,7 +4,7 @@ const app = express();
 const mongoose = require("mongoose");
 const userSignUpRoute = require("./routes/userSignUp");
 const userLoginRoute = require("./routes/userLogin");
-const userRoute = require("./routes/userSignUp");
+const userRoute = require("./routes/users");
 
 app.use(express.json());
 
