@@ -15,7 +15,7 @@ import { signUpURI } from "../utils/utils.js";
 import axios from "axios";
 
 const SignUp = ({ navigation }) => {
-  const [username, setUsername] = useState("");
+  const [name, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -45,7 +45,7 @@ const SignUp = ({ navigation }) => {
 
   const handleSignup = () => {
     const userData = {
-      name: username,
+      name: name,
       email: email,
       password: password,
       phoneNumber: phoneNumber,
@@ -105,8 +105,8 @@ const SignUp = ({ navigation }) => {
   const inputBoxes = [
     {
       placeholder: "Full Name: ",
-      autoComplete: "username",
-      value: username,
+      autoComplete: "name",
+      value: name,
       secureTextEntry: false,
       keyboardType: "default",
       valid: usernameValidity,

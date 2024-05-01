@@ -1,22 +1,56 @@
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from "./Home.jsx";
+import Dashboard from "./Dashboard.jsx";
+import Classes from "./Classes.jsx";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import Profile from "./Profile.jsx";
+import { Grid, Home, List } from "react-native-feather";
 
-const Tab = createBottomTabNavigator();
+const TopTab = createMaterialTopTabNavigator();
 
 const MemberScreen = () => {
-    return (
-        <Tab.Navigator
-            screenOptions={{
-                headerShown: false,
-                tabBarActiveTintColor: "white",
-                tabBarInactiveTintColor: "darkgray",
-                tabBarStyle: { backgroundColor: "black" },
-            }}
-        >
-            <Tab.Screen name="Home" component={Home} />
-        </Tab.Navigator>
-    );
+  return (
+    <TopTab.Navigator
+      initialRouteName="Dashboard"
+      backBehavior="history"
+      tabBarPosition="bottom"
+      screenOptions={{
+        tabBarActiveTintColor: "white",
+        tabBarInactiveTintColor: "darkgray",
+        tabBarStyle: { backgroundColor: "black" },
+      }}
+    >
+      <TopTab.Screen
+        name="Dashboard"
+        component={Dashboard}
+        options={() => ({
+          tabBarIcon: ({ focused }) => {
+            const col = focused ? "white" : "darkgray";
+            return <Grid color={col} />;
+          },
+        })}
+      />
+      <TopTab.Screen
+        name="Classes"
+        component={Classes}
+        options={() => ({
+          tabBarIcon: ({ focused }) => {
+            const col = focused ? "white" : "darkgray";
+            return <List color={col} />;
+          },
+        })}
+      />
+      <TopTab.Screen
+        name="Profile"
+        component={Profile}
+        options={() => ({
+          tabBarIcon: ({ focused }) => {
+            const col = focused ? "white" : "darkgray";
+            return <Home color={col} />;
+          },
+        })}
+      />
+    </TopTab.Navigator>
+  );
 };
 
 export default MemberScreen;
