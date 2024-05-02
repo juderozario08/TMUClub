@@ -17,8 +17,8 @@ export default function App() {
                     autoHideHomeIndicator: true,
                 }}
             >
-                {/*<Stack.Screen name="Login" component={Login} />*/}
-                {/*<Stack.Screen name="SignUp" component={SignUp} />*/}
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="SignUp" component={SignUp} />
                 <Stack.Screen name="Member Screen" component={MemberScreen} />
             </Stack.Navigator>
             <StatusBar style="auto" hideTransitionAnimation="slide" />

@@ -72,4 +72,8 @@ export const Styles = StyleSheet.create({
         textAlign: "center",
         paddingTop: 12,
     },
+    WelcomeText: {
+        flex: 1,
+        backgroundColor: theme === "dark" ? "black" : "white",
+    },
 });
