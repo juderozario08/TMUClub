@@ -4,6 +4,7 @@ import Classes from "./Classes.jsx";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Profile from "./Profile.jsx";
 import { Grid, Home, List } from "react-native-feather";
+import { theme } from "../../Colors.js";
 
 const TopTab = createMaterialTopTabNavigator();
 
@@ -16,7 +17,7 @@ const MemberScreen = () => {
       screenOptions={{
         tabBarActiveTintColor: "white",
         tabBarInactiveTintColor: "darkgray",
-        tabBarStyle: { backgroundColor: "black" },
+        tabBarStyle: { backgroundColor: theme === "dark" ? "black" : "white"},
       }}
     >
       <TopTab.Screen

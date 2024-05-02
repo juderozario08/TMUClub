@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Styles } from "../Colors.js";
 import axios from "axios";
-import { loginURI } from "../utils/utils.js";
+import { loginURI } from "../globalRoutes.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Eye, EyeOff } from "react-native-feather";
 

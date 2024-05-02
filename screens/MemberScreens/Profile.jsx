@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { userURI } from "../../utils/utils.js";
+import { userURI } from "../../globalRoutes.js";
 import { Styles } from "../../Colors.js";
 
 const Profile = ({ navigation }) => {
