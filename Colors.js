@@ -60,7 +60,6 @@ export const Styles = StyleSheet.create({
         backgroundColor: "#0284C7",
         borderRadius: 24,
         paddingVertical: 14,
-        width: "100%",
         marginTop: 40,
     },
     SubmitButtonText: {
