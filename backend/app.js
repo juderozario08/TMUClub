@@ -6,6 +6,7 @@ const userSignUpRouter = require("./routes/userSignUp");
 const userLoginRouter = require("./routes/userLogin");
 const userRouter = require("./routes/users");
 const classRouter = require("./routes/classes");
+const classSignupRouter = require("./routes/classes");
 
 app.use(express.json());
 
@@ -20,6 +21,7 @@ app.use(`/signup`, userSignUpRouter);
 app.use(`/login`, userLoginRouter);
 app.use(`/users`, userRouter);
 app.use(`/classes`, classRouter);
+app.use(`/classes/create`, classSignupRouter);
 
 const port = 3000;
 app.listen(port, () => {
