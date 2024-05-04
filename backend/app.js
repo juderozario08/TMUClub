@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const userSignUpRouter = require("./routes/userSignUp");
 const userLoginRouter = require("./routes/userLogin");
 const userRouter = require("./routes/users");
+const classRouter = require("./routes/classes");
 
 app.use(express.json());
 
@@ -18,8 +19,9 @@ mongoose.connect(process.env.DB_URL)
 app.use(`/signup`, userSignUpRouter);
 app.use(`/login`, userLoginRouter);
 app.use(`/users`, userRouter);
+app.use(`/classes`, classRouter);
 
-const port = 3000
+const port = 3000;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
