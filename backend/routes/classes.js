@@ -42,3 +42,5 @@ router.route("/:id")
             res.status(500).send({ status: "error", message: err.message });
         }
     });
+
+module.exports = router;

@@ -1,6 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
-
 const port = 3000;
 const serverIP = `http://10.0.0.26`;
 const loginRoute = `login`;
@@ -16,19 +13,6 @@ const userURI = `${serverIP}:${port}/${userRoute}`;
 const classURI = `${serverIP}:${port}/${classRoute}`;
 const paymentURI = `${serverIP}:${port}/${paymentRoute}`;
 
-const fetchUserInfo = async () => {
-    try {
-        const id = await AsyncStorage.getItem("id");
-        if (!id) {
-            console.log("User ID not found in AsyncStorage.");
-            return;
-        }
-        const response = await axios.get(`${userURI}/${id}`);
-        return (response.data);
-    } catch (error) {
-        console.error(error.message);
-    }
-};
 
 export {
     classRoute,
@@ -44,5 +28,4 @@ export {
     uri,
     userRoute,
     userURI,
-    fetchUserInfo
 };

@@ -66,6 +66,11 @@ export const Styles = StyleSheet.create({
         color: "white",
         textAlign: "center",
     },
+    SubmitButtonView: {
+        width: "100%",
+        paddingHorizontal: 40,
+        marginBottom: 20,
+    },
     SubmitButtonErrorText: {
         color: "#EF4444",
         textAlign: "center",
