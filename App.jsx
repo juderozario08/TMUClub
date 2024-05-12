@@ -19,8 +19,8 @@ export default function App() {
                     autoHideHomeIndicator: true,
                 }}
             >
-                {/*<Stack.Screen name="Login" component={Login} />*/}
-                {/*<Stack.Screen name="SignUp" component={SignUp} />*/}
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="SignUp" component={SignUp} />
                 {/*<Stack.Screen name="Member Screen" component={MemberScreen} />*/}
                 {/*<Stack.Screen name="Coach Screen" component={CoachScreen} />*/}
                 <Stack.Screen name="Treasurer Screen" component={TreasurerScreen} />

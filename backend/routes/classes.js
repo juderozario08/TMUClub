@@ -6,6 +6,7 @@ const Class = mongoose.model("Class");
 
 router.route("/:id")
     .get(async (req, res) => {
+        console.log("GETTING CLASS BY ID")
         const { id } = req.params;
         try {
             const cls = await Class.findById(id);

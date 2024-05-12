@@ -1,31 +1,18 @@
-const port = 3000;
-const serverIP = `http://10.0.0.26`;
-const loginRoute = `login`;
-const signUpRoute = `signup`;
-const userRoute = `users`;
-const classRoute = `classes`;
-const paymentRoute = `payments`;
-
-const uri = `${serverIP}:${port}`;
-const loginURI = `${serverIP}:${port}/${loginRoute}`;
-const signUpURI = `${serverIP}:${port}/${signUpRoute}`;
-const userURI = `${serverIP}:${port}/${userRoute}`;
-const classURI = `${serverIP}:${port}/${classRoute}`;
-const paymentURI = `${serverIP}:${port}/${paymentRoute}`;
+const uri = 'http://10.0.0.26:3000';
+const classCreateURI = 'http://10.0.0.26:3000/classes/create';
+const classURI = 'http://10.0.0.26:3000/classes';
+const loginURI = 'http://10.0.0.26:3000/login';
+const signUpURI = 'http://10.0.0.26:3000/signup';
+const userURI = 'http://10.0.0.26:3000/users';
+const paymentURI = 'http://10.0.0.26:3000/payment';
 
 
 export {
-    classRoute,
     classURI,
-    loginRoute,
-    loginURI,
-    paymentRoute,
-    paymentURI,
-    port,
-    serverIP,
-    signUpRoute,
-    signUpURI,
     uri,
-    userRoute,
-    userURI,
+    classCreateURI,
+    loginURI,
+    paymentURI,
+    signUpURI,
+    userURI
 };

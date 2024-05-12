@@ -1,9 +1,36 @@
 import React, { useState } from "react";
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Styles } from "../../Colors.js";
+import axios from "axios";
+import { classCreateURI } from "../../globalRoutes.js";
 
 const ClassManagement = () => {
     const [isVisible, setIsVisible] = useState(false);
+    const [classData, setClassData] = useState(null);
+    const [error, setError] = useState(null);
+
+    const addClass = async () => {
+        console.log("Started")
+        axios.post(`${classCreateURI}`, classData).then((res) => {
+            console.log("POSTED")
+            if (res.status === 200) {
+                console.log("Class Added");
+            }
+        }).catch((err) => {
+            console.log(err.message);
+            if (err.response && err.response.status === 500) {
+                setError("Internal server error.");
+            }
+            else if (err.response && err.response.status === 409) {
+                setError("Class already exists.");
+            }
+            else if (err.response && err.response.status === 400) {
+                setError(err.message);
+            } else {
+                setError("An error has occured. Please try again.");
+            }
+        })
+    }
 
     return (
         <View style={Styles.MainContainer}>
@@ -24,6 +51,19 @@ const ClassManagement = () => {
                 <View style={styles.modalContainer}>
                     <View style={styles.modalContent}>
                         <Text style={{ color: "black", fontSize: 24 }}>Modal</Text>
+                        <TouchableOpacity
+                            style={Styles.SubmitButton}
+                            onPress={() => {
+                                setClassData({
+                                    title: "Test",
+                                    coach: "Test",
+                                    participants: ["Test"]
+                                });
+                                addClass();
+                            }}
+                        >
+                            <Text style={Styles.SubmitButtonText}>Add Class</Text>
+                        </TouchableOpacity>
                         <TouchableOpacity
                             style={Styles.SubmitButton}
                             onPress={() => setIsVisible(false)}
