@@ -26,29 +26,29 @@ const Dashboard = () => {
 
     return (
         <SafeAreaView style={Styles.WelcomeText}>
-            {userInfo
-                ? (
-                    <View style={{ flex: 1 }}>
-                        <Text
-                            style={{
-                                fontSize: 24,
-                                fontWeight: "bold",
-                                color: "white",
-                                marginTop: "13%",
-                                marginLeft: "8%",
-                            }}
-                        >
-                            Welcome {userInfo.name},
+            {userInfo ? (
+                <View style={{ flex: 1 }}>
+                    <Text
+                        style={{
+                            fontSize: 24,
+                            fontWeight: "bold",
+                            color: "white",
+                            marginTop: "13%",
+                            marginLeft: "8%",
+                        }}
+                    >
+                        Welcome {userInfo.name},
+                    </Text>
+                    <View style={Styles.MainContainer}>
+                        <Text style={Styles.MainSubText}>Email: {userInfo.email}</Text>
+                        <Text style={Styles.MainSubText}>
+                            Email: {userInfo.phoneNumber}
                         </Text>
-                        <View style={Styles.MainContainer}>
-                            <Text style={Styles.MainSubText}>Email: {userInfo.email}</Text>
-                            <Text style={Styles.MainSubText}>
-                                Email: {userInfo.phoneNumber}
-                            </Text>
-                        </View>
                     </View>
-                )
-                : <Text style={Styles.MainText}>Loading user information...</Text>}
+                </View>
+            ) : (
+                <Text style={Styles.MainText}>Loading user information...</Text>
+            )}
         </SafeAreaView>
     );
 };
