@@ -11,12 +11,14 @@ const classSignupRouter = require("./routes/classes");
 
 app.use(express.json());
 
-mongoose.connect(process.env.DB_URL)
-    .then(() => {
-        console.log("Connected to MongoDB");
-    }).catch((err) => {
-        console.log("Error: ", err);
-    });
+mongoose
+	.connect(process.env.DB_URL)
+	.then(() => {
+		console.log("Connected to MongoDB");
+	})
+	.catch((err) => {
+		console.log("Error: ", err);
+	});
 
 app.use(`/signup`, userSignUpRouter);
 app.use(`/login`, userLoginRouter);
@@ -26,5 +28,5 @@ app.use(`/classes/create`, classSignupRouter);
 
 const port = 3000;
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+	console.log(`Server is running on port ${port}`);
 });

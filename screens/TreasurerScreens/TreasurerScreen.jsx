@@ -1,7 +1,7 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Activity, Grid, List, User, Users } from "react-native-feather";
-import { theme } from "../../Colors.js";
+import { tabColor, theme } from "../../Colors.js";
 import Dashboard from "./Dashboard.jsx";
 import CoachManagement from "./CoachManagement.jsx";
 import Profile from "./Profile.jsx";
@@ -17,7 +17,7 @@ const TreasurerScreen = () => {
             backBehavior="history"
             tabBarPosition="bottom"
             screenOptions={{
-                tabBarActiveTintColor: "white",
+                tabBarActiveTintColor: theme === 'dark' ? "white" : "black",
                 tabBarInactiveTintColor: "darkgray",
                 tabBarStyle: { backgroundColor: theme === "dark" ? "black" : "white" },
                 tabBarLabel: () => {
@@ -30,7 +30,7 @@ const TreasurerScreen = () => {
                 component={Dashboard}
                 options={() => ({
                     tabBarIcon: ({ focused }) => {
-                        const col = focused ? "white" : "darkgray";
+                        const col = focused ? tabColor : "darkgray";
                         return <Grid color={col} />;
                     },
                 })}
@@ -40,7 +40,7 @@ const TreasurerScreen = () => {
                 component={ClassManagement}
                 options={() => ({
                     tabBarIcon: ({ focused }) => {
-                        const col = focused ? "white" : "darkgray";
+                        const col = focused ? tabColor : "darkgray";
                         return <List color={col} />;
                     },
                 })}
@@ -50,7 +50,7 @@ const TreasurerScreen = () => {
                 component={CoachManagement}
                 options={() => ({
                     tabBarIcon: ({ focused }) => {
-                        const col = focused ? "white" : "darkgray";
+                        const col = focused ? tabColor : "darkgray";
                         return <Activity color={col} />;
                     },
                 })}
@@ -60,7 +60,7 @@ const TreasurerScreen = () => {
                 component={MemberManagement}
                 options={() => ({
                     tabBarIcon: ({ focused }) => {
-                        const col = focused ? "white" : "darkgray";
+                        const col = focused ? tabColor : "darkgray";
                         return <Users color={col} />;
                     },
                 })}
@@ -70,7 +70,7 @@ const TreasurerScreen = () => {
                 component={Profile}
                 options={() => ({
                     tabBarIcon: ({ focused }) => {
-                        const col = focused ? "white" : "darkgray";
+                        const col = focused ? tabColor : "darkgray";
                         return <User color={col} />;
                     },
                 })}
