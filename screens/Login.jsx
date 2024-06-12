@@ -19,38 +19,43 @@ const Login = ({ navigation }) => {
     const [error, setError] = useState("");
     const [passwordShow, setPasswordShow] = useState(false);
     const determineEye = () => {
-        return passwordShow
-            ? <Eye color={"darkgray"} fill={"none"} />
-            : <EyeOff color={"darkgray"} fill={"none"} />;
+        return passwordShow ? (
+            <Eye color={"darkgray"} fill={"none"} />
+        ) : (
+            <EyeOff color={"darkgray"} fill={"none"} />
+        );
     };
     const handleLogin = () => {
         console.log("Logging in...");
-        axios.post(`${loginURI}`, {
-            email: email,
-            password: password,
-        }).then((res) => {
-            if (res.status === 200) {
-                AsyncStorage.setItem("id", res.data.id);
-                if (res.data.role === "member") {
-                    navigation.navigate("Member Screen");
-                } else if (res.data.role === "coach") {
-                    navigation.navigate("Coach Screen");
-                } else if (res.data.role === "treasurer") {
-                    navigation.navigate("Treasurer Screen");
+        axios
+            .post(`${loginURI}`, {
+                email: email,
+                password: password,
+            })
+            .then((res) => {
+                if (res.status === 200) {
+                    AsyncStorage.setItem("id", res.data.id);
+                    if (res.data.role === "member") {
+                        navigation.navigate("Member Screen");
+                    } else if (res.data.role === "coach") {
+                        navigation.navigate("Coach Screen");
+                    } else if (res.data.role === "treasurer") {
+                        navigation.navigate("Treasurer Screen");
+                    }
                 }
-            }
-        }).catch((err) => {
-            console.log(err);
-            if (err.response && err.response.status === 404) {
-                setError("User not found.");
-            } else if (err.response && err.response.status === 401) {
-                setError("Incorrect password.");
-            } else if (err.response && err.response.status === 500) {
-                setError("Internal server error.");
-            } else {
-                setError("An error has occured. Please try again.");
-            }
-        });
+            })
+            .catch((err) => {
+                console.log(err);
+                if (err.response && err.response.status === 404) {
+                    setError("User not found.");
+                } else if (err.response && err.response.status === 401) {
+                    setError("Incorrect password.");
+                } else if (err.response && err.response.status === 500) {
+                    setError("Internal server error.");
+                } else {
+                    setError("An error has occured. Please try again.");
+                }
+            });
     };
 
     return (
@@ -102,18 +107,13 @@ const Login = ({ navigation }) => {
                 </View>
             </View>
             <View style={{ width: "100%", paddingHorizontal: 40, marginBottom: 20 }}>
-                <TouchableOpacity
-                    style={Styles.SubmitButton}
-                    onPress={handleLogin}
-                >
+                <TouchableOpacity style={Styles.SubmitButton} onPress={handleLogin}>
                     <Text style={Styles.SubmitButtonText}>Login</Text>
                 </TouchableOpacity>
                 <Text style={Styles.SubmitButtonErrorText}>{error}</Text>
             </View>
             <View style={Styles.BottomTextContainer}>
-                <Text style={Styles.BottomText}>
-                    Don't have an account?{" "}
-                </Text>
+                <Text style={Styles.BottomText}>Don't have an account? </Text>
                 <TouchableOpacity
                     onPress={() => {
                         navigation.navigate("SignUp");

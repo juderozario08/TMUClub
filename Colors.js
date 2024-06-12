@@ -28,9 +28,10 @@ export const Styles = StyleSheet.create({
 	},
 	InputBox: {
 		flexDirection: "row",
+        backgroundColor: theme === "dark" ? "#333" : "#000",
 		width: "100%",
 		borderWidth: 1,
-		borderRadius: 5,
+		borderRadius: 10,
 		color: defaultTextColor,
 	},
 	Input: {
@@ -38,11 +39,11 @@ export const Styles = StyleSheet.create({
 		color: theme === "dark" ? "white" : "black",
 		alignSelf: "center",
 		paddingTop: 15,
-		paddingHorizontal: 5,
+		paddingHorizontal: 10,
 	},
 	InputBoxText: {
 		top: 1,
-		left: 5,
+		paddingLeft: 10,
 		position: "absolute",
 		color: "darkgray",
 	},
