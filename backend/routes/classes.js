@@ -4,9 +4,10 @@ const mongoose = require("mongoose");
 require("../models/classes");
 const Class = mongoose.model("Class");
 
-router.route("/:id")
+router
+    .route("/:id")
     .get(async (req, res) => {
-        console.log("GETTING CLASS BY ID")
+        console.log("GETTING CLASS BY ID");
         const { id } = req.params;
         try {
             const cls = await Class.findById(id);
@@ -18,7 +19,8 @@ router.route("/:id")
             console.log(err);
             res.status(500).send({ status: "error", message: err.message });
         }
-    }).put(async (req, res) => {
+    })
+    .put(async (req, res) => {
         const { id } = req.params;
         try {
             const cls = await Class.findByIdAndUpdate(id, req.body);
@@ -30,7 +32,8 @@ router.route("/:id")
             console.log(err);
             res.status(500).send({ status: "error", message: err.message });
         }
-    }).delete(async (req, res) => {
+    })
+    .delete(async (req, res) => {
         const { id } = req.params;
         try {
             const cls = await Class.findByIdAndDelete(id);
