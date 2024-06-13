@@ -13,7 +13,11 @@ import { loginURI } from "../globalRoutes";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Eye, EyeOff } from "react-native-feather";
 
-const Login = ({ navigation }) => {
+interface LoginProps {
+    navigation: any;
+}
+
+const Login: React.FC<LoginProps> = ({ navigation }): React.JSX.Element => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -36,7 +40,7 @@ const Login = ({ navigation }) => {
                 if (res.status === 200) {
                     AsyncStorage.setItem("id", res.data.id);
                     if (res.data.role === "member") {
-                        navigation.navigate("Member Screen");
+                        navigation.navigate(`Member Screen`);
                     } else if (res.data.role === "coach") {
                         navigation.navigate("Coach Screen");
                     } else if (res.data.role === "treasurer") {
