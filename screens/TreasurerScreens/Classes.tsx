@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Styles } from "../../Colors";
 import axios from "axios";
-import { classCreateURI } from "../../globalRoutes.js";
+import { classCreateURI } from "../../globalRoutes";
 
 const ClassManagement = () => {
     const [isVisible, setIsVisible] = useState(false);

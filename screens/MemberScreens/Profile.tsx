@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Styles } from "../../Colors";
 import axios from "axios";
-import { userURI } from "../../globalRoutes.js";
+import { userURI } from "../../globalRoutes";
 
 const Profile = () => {
     const [userInfo, setUserInfo] = useState(null);

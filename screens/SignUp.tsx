@@ -11,9 +11,9 @@ import {
 } from "react-native";
 import { Styles } from "../Colors";
 import { CheckCircle, Eye, EyeOff, X } from "react-native-feather";
-import { signUpURI } from "../globalRoutes.js";
+import { signUpURI } from "../globalRoutes";
 import axios from "axios";
-import { Validity } from "../Validity.js";
+import { Validity } from "../Validity";
 
 const SignUp = ({ navigation }) => {
   const [name, setUsername] = useState("");

@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { Styles } from "../../Colors.js";
+import { Styles } from "../../Colors";
 
 const CoachManagement = () => {
     return (

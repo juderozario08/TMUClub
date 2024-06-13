@@ -18,6 +18,7 @@
     "@react-navigation/native-stack": "^6.9.26",
     "@types/react": "~18.2.45",
     "axios": "^1.6.8",
+    "cors": "^2.8.5",
     "expo": "^51.0.13",
     "expo-status-bar": "1.12.1",
     "feather-icons": "^4.29.1",

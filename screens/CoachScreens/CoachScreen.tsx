@@ -1,8 +1,8 @@
 import React from "react";
-import Dashboard from "./Dashboard.jsx";
-import Classes from "./Classes.jsx";
+import Dashboard from "./Dashboard";
+import Classes from "./Classes";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import Profile from "./Profile.jsx";
+import Profile from "./Profile";
 import { Grid, List, User } from "react-native-feather";
 import { theme } from "../../Colors";
 

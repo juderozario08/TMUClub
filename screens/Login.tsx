@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Styles } from "../Colors";
 import axios from "axios";
-import { loginURI } from "../globalRoutes.js";
+import { loginURI } from "../globalRoutes";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Eye, EyeOff } from "react-native-feather";
 
@@ -45,7 +45,7 @@ const Login = ({ navigation }) => {
                 }
             })
             .catch((err) => {
-                console.log(err);
+                console.log(err.message);
                 if (err.response && err.response.status === 404) {
                     setError("User not found.");
                 } else if (err.response && err.response.status === 401) {
