@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { Styles } from "../../Colors.js";
+import { Styles } from "../../Colors";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { userURI } from "../../globalRoutes.js";

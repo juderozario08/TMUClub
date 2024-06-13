@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Styles } from "../../Colors.js";
+import { Styles } from "../../Colors";
 import axios from "axios";
 import { userURI } from "../../globalRoutes.js";
 

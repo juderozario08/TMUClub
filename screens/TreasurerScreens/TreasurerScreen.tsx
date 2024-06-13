@@ -1,7 +1,7 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Activity, Grid, List, User, Users } from "react-native-feather";
-import { tabColor, theme } from "../../Colors.js";
+import { tabColor, theme } from "../../Colors";
 import Dashboard from "./Dashboard.jsx";
 import CoachManagement from "./CoachManagement.jsx";
 import Profile from "./Profile.jsx";

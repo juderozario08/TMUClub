@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Styles } from "../Colors.js";
+import { Styles } from "../Colors";
 import { CheckCircle, Eye, EyeOff, X } from "react-native-feather";
 import { signUpURI } from "../globalRoutes.js";
 import axios from "axios";

@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     View,
 } from "react-native";
-import { Styles } from "../Colors.js";
+import { Styles } from "../Colors";
 import axios from "axios";
 import { loginURI } from "../globalRoutes.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";

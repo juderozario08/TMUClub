@@ -1,11 +1,11 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Login from "./screens/Login.jsx";
-import SignUp from "./screens/SignUp.jsx";
+import Login from "./screens/Login";
+import SignUp from "./screens/SignUp";
 import { StatusBar } from "expo-status-bar";
-import MemberScreen from "./screens/MemberScreens/MemberScreen.jsx";
-import CoachScreen from "./screens/CoachScreens/CoachScreen.jsx";
-import TreasurerScreen from "./screens/TreasurerScreens/TreasurerScreen.jsx";
+import MemberScreen from "./screens/MemberScreens/MemberScreen";
+import CoachScreen from "./screens/CoachScreens/CoachScreen";
+import TreasurerScreen from "./screens/TreasurerScreens/TreasurerScreen";
 
 const Stack = createNativeStackNavigator();
 

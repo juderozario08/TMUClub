@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View } from "react-native";
-import { Styles } from "../../Colors.js";
+import { Styles } from "../../Colors";
 
 const CoachScreen = () => {
   return (

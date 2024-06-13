@@ -4,7 +4,7 @@ import Classes from "./Classes.jsx";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Profile from "./Profile.jsx";
 import { Grid, List, User } from "react-native-feather";
-import { theme } from "../../Colors.js";
+import { theme } from "../../Colors";
 
 const TopTab = createMaterialTopTabNavigator();
 

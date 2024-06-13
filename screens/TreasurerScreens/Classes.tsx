@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Styles } from "../../Colors.js";
+import { Styles } from "../../Colors";
 import axios from "axios";
 import { classCreateURI } from "../../globalRoutes.js";
 
@@ -10,16 +10,16 @@ const ClassManagement = () => {
     const [error, setError] = useState(null);
 
     const addClass = async () => {
-        try {
-            setClassData({
-                title: "Test",
-                coach: "Test",
+        axios
+            .post(`${classCreateURI}`, classData)
+            .then((res) => {
+                if (res.status === 200) {
+                    console.log("Class Added");
+                }
+            })
+            .catch((err) => {
+                setError(err.message);
             });
-            const res = await axios.post(`${classCreateURI}`, classData);
-            console.log("Response: ", res);
-        } catch (err) {
-            console.log(err.message);
-        }
     };
 
     return (
@@ -40,6 +40,12 @@ const ClassManagement = () => {
                         <TouchableOpacity
                             style={Styles.SubmitButton}
                             onPress={() => {
+                                setClassData({
+                                    title: "Test",
+                                    coach: "Test",
+                                    time: new Date(),
+                                    participants: ["Test"],
+                                });
                                 addClass();
                             }}
                         >
