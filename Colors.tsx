@@ -3,6 +3,8 @@ import { Appearance, ColorSchemeName, StyleSheet } from "react-native";
 export const theme: ColorSchemeName = Appearance.getColorScheme();
 export const backgroundColor: string = theme === "dark" ? "black" : "white";
 export const defaultTextColor: string = theme === "dark" ? "white" : "black";
+export const defaultModalTextColor: string =
+	theme === "dark" ? "black" : "white";
 export const tabColor: string = theme === "dark" ? "white" : "black";
 
 export const Styles = StyleSheet.create({
@@ -120,5 +122,28 @@ export const Styles = StyleSheet.create({
 	ModalButtonText: {
 		textAlign: "center",
 		color: "white",
+	},
+	ModalInputBox: {
+		flexDirection: "row",
+		backgroundColor: theme === "dark" ? "#eee" : "#333",
+		width: "100%",
+		borderWidth: 1,
+		borderRadius: 10,
+		color: defaultModalTextColor,
+	},
+	ModalInput: {
+		width: "100%",
+		color: theme === "dark" ? "black" : "white",
+		alignSelf: "center",
+		paddingTop: 20,
+		paddingBottom: 5,
+		paddingHorizontal: 10,
+	},
+	ModalInputBoxText: {
+		top: 3,
+		paddingLeft: 10,
+		fontSize: 12,
+		position: "absolute",
+		color: "#999",
 	},
 });
