@@ -7,11 +7,11 @@ const allMembers: any[] = [];
 const allClasses: any[] = [];
 
 export {
-	treasurerInfo,
-	coachInfo,
-	memberInfo,
-	userClasses,
-	allCoaches,
-	allMembers,
-	allClasses,
+    treasurerInfo,
+    coachInfo,
+    memberInfo,
+    userClasses,
+    allCoaches,
+    allMembers,
+    allClasses,
 };
