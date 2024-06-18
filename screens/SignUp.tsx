@@ -46,7 +46,7 @@ const SignUp: React.FC<SignUpProps> = ({ navigation }) => {
             phoneNumber: phoneNumber,
         };
         axios
-            .post(`${signUpURI}`, userData)
+            .post(`${signUpURI}/member`, userData)
             .then((_) => {
                 Alert.alert("User created successfully.");
                 navigation.navigate("Login");

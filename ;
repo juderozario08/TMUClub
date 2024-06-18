@@ -1,0 +1,56 @@
+import React, { useState } from "react";
+import { Alert, View } from "react-native";
+import { Styles } from "../../../Colors";
+import { signUpURI, userURI } from "../../../globalRoutes";
+import axios from "axios";
+import { allMembers, allCoaches, allTreasurers } from "../../../globalDBValues";
+
+const MemberManagement = () => {
+    const [user, setUser] = useState({
+        name: "",
+        email: "",
+        password: "",
+        phoneNumber: "",
+        balance: 0,
+        classes: [],
+    });
+    const addMember = async () => {
+        axios
+            .post(`${signUpURI}/treasurer`, {
+                name: "apsijf",
+                email: "absgob@mail.com",
+                password: "Anyone123!",
+                phoneNumber: "1234567890",
+                balance: 50,
+                classes: [],
+            })
+            .then((_) => {
+                Alert.alert(`The user: "${user.name}" has been added successfully.`);
+                console.log(`The user: "${user.name}" has been added successfully.`);
+                fetchUsers();
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    };
+    const fetchUsers = async () => {
+        try {
+            const res = await axios.get(userURI);
+            res.data.forEach((user: any) => {
+                if (user.role === "member") {
+                    allMembers.push(user);
+                } else if (user.role === "coach") {
+                    allCoaches.push(user);
+                } else if (user.role === "treasurer") {
+                    allTreasurers.push(user);
+                }
+            });
+            console.log(res.data);
+        } catch (err: any) {
+            console.log(err.message);
+        }
+    };
+    return <View style={Styles.MainContainer}></View>;
+};
+
+export default MemberManagement;
