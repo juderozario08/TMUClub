@@ -17,7 +17,7 @@ router.post("/:role", async (req, res) => {
             });
         }
         const encryptedPassword = await bcrypt.hash(password, 10);
-        await User.create({
+        const user = await User.create({
             name,
             email,
             password: encryptedPassword,
@@ -29,6 +29,13 @@ router.post("/:role", async (req, res) => {
         res.status(201).send({
             status: "success",
             message: "User created successfully.",
+            id: user._id,
+            role: role,
+            name: name,
+            email: email,
+            phoneNumber: phoneNumber,
+            balance: balance,
+            classes: classes,
         });
     } catch (err) {
         console.error(err);

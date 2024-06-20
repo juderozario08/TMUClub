@@ -3,27 +3,28 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { Styles } from "../../../Colors";
 
 interface MemberManagementHomeProps {
-    navigation: any;
+	navigation: any;
 }
 
 const MemberManagementHome: React.FC<MemberManagementHomeProps> = ({
-    navigation,
+	navigation,
 }): React.JSX.Element => {
-    return (
-        <View style={Styles.MainContainer}>
-            <Text style={Styles.WelcomeText}>Member Management</Text>
-            <View>
-                <Text>SHOW ALL MEMBERS HERE</Text>
-            </View>
-            <TouchableOpacity
-                onPress={() => {
-                    navigation.navigate("Member Add");
-                }}
-            >
-                <Text>Add</Text>
-            </TouchableOpacity>
-        </View>
-    );
+	return (
+		<View style={Styles.MainContainer}>
+			<Text style={Styles.WelcomeText}>Member Management</Text>
+			<Text style={Styles.MainText}>SHOW ALL MEMBERS HERE</Text>
+			<View style={Styles.SubmitButtonView}>
+				<TouchableOpacity
+					style={Styles.SubmitButton}
+					onPress={() => {
+						navigation.navigate("Member Add");
+					}}
+				>
+					<Text style={Styles.SubmitButtonText}>Add</Text>
+				</TouchableOpacity>
+			</View>
+		</View>
+	);
 };
 
 export default MemberManagementHome;
