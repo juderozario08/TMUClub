@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import { Alert, Text, TextInput, View } from "react-native";
+import { Alert, Modal, Text, TextInput, View } from "react-native";
 import { Styles } from "../../../Colors";
 import { signUpURI, userURI } from "../../../globalRoutes";
 import axios from "axios";
 import { allMembers, allCoaches, allTreasurers } from "../../../globalDBValues";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const MemberManagement = () => {
+interface MemberAddProps {
+    navigation: any;
+}
+
+const MemberAdd: React.FC<MemberAddProps> = ({
+    navigation,
+}): React.JSX.Element => {
     const [user, setUser] = useState({
         name: "",
         email: "",
@@ -15,6 +21,7 @@ const MemberManagement = () => {
         balance: 0,
         classes: [],
     });
+    const [isModalVisible, setModalVisible] = useState(false);
     const [error, setError] = useState("");
 
     const handleChange = (name: string, value: number | string) => {
@@ -62,6 +69,10 @@ const MemberManagement = () => {
             console.log(err.message);
         }
     };
+    function addAnother(val: boolean) {
+        !val ? navigation.navigate("MemberID Home") : null;
+    }
+
     return (
         <View style={Styles.MainContainer}>
             <Text style={Styles.WelcomeText}>Add User</Text>
@@ -106,8 +117,31 @@ const MemberManagement = () => {
                     <Text style={Styles.SubmitButtonErrorText}>{error}</Text>
                 ) : null}
             </View>
+            <Modal animationType="slide" transparent={true} visible={isModalVisible}>
+                <View>
+                    <Text style={Styles.WelcomeText}>
+                        Do you want to add another member?
+                    </Text>
+                    <View>
+                        <TouchableOpacity
+                            onPress={() => {
+                                addAnother(true);
+                            }}
+                        >
+                            <Text>Yes</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => {
+                                addAnother(false);
+                            }}
+                        >
+                            <Text>No</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 };
 
-export default MemberManagement;
+export default MemberAdd;
