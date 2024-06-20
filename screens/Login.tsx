@@ -30,7 +30,6 @@ const Login: React.FC<LoginProps> = ({ navigation }): React.JSX.Element => {
         );
     };
     const handleLogin = () => {
-        console.log("Logging in...");
         axios
             .post(`${loginURI}`, {
                 email: email,
@@ -49,7 +48,7 @@ const Login: React.FC<LoginProps> = ({ navigation }): React.JSX.Element => {
                 }
             })
             .catch((err) => {
-                console.log(err.message);
+                console.error(err.message);
                 if (err.response && err.response.status === 404) {
                     setError("User not found.");
                 } else if (err.response && err.response.status === 401) {
