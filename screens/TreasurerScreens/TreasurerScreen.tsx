@@ -5,15 +5,35 @@ import { backgroundColor, tabColor } from "../../Colors";
 import Dashboard from "./Dashboard";
 import UserManagement from "./UserManagement";
 import ClassManagement from "./Classes";
-import { fetchUserInfo, fetchUsers } from "../../globalDBValues";
+import {
+	allCoaches,
+	allMembers,
+	allTreasurers,
+	allUsers,
+} from "../../globalDBValues";
 import Profile from "./Profile";
+import axios from "axios";
+import { userURI } from "../../globalRoutes";
 
 const TopTab = createMaterialTopTabNavigator();
 
 const TreasurerScreen = () => {
+	const fetchAllUsers = async () => {
+		const res = await axios.get(`${userURI}`);
+		for (let i = 0; i < res.data.length; i++) {
+			allUsers.push(res.data[i]);
+			if (res.data[i].role === "member") {
+				allMembers.push(res.data[i]);
+			} else if (res.data[i].role === "coach") {
+				allCoaches.push(res.data[i]);
+			} else if (res.data[i].role === "treasurer") {
+				allTreasurers.push(res.data[i]);
+			}
+		}
+	};
+
 	useEffect(() => {
-		fetchUserInfo();
-		fetchUsers();
+		fetchAllUsers();
 	}, []);
 
 	return (
