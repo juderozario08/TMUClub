@@ -1,7 +1,9 @@
-import React from "react";
-import { ScrollView, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Text, View } from "react-native";
 import { Styles } from "../../../Colors";
-import { allMembers } from "../../../globalDBValues";
+import axios from "axios";
+import { userRoleURI } from "../../../globalRoutes";
+import UserList from "../../../Customs/UserList";
 
 interface MemberManagementHomeProps {
 	navigation: any;
@@ -10,19 +12,23 @@ interface MemberManagementHomeProps {
 const MemberManagementHome: React.FC<MemberManagementHomeProps> = ({
 	navigation,
 }): React.JSX.Element => {
+	const [allMembers, setAllMembers] = useState<any[]>([]);
+	const fetchAllMembers = async () => {
+		try {
+			const res = await axios.get(`${userRoleURI}/member`);
+			setAllMembers(res.data);
+		} catch (err: any) {
+			console.log(err.message);
+		}
+	};
+	useEffect(() => {
+		fetchAllMembers();
+	}, []);
 	return (
-		<ScrollView contentContainerStyle={Styles.MainContainer}>
-			{allMembers.map((el, index) => {
-				return (
-					<View key={index} style={Styles.Cards}>
-						<View style={{ padding: 10 }}>
-							<Text style={Styles.CardsText}>{el.name}</Text>
-							<Text style={Styles.CardsText}>{el.email}</Text>
-						</View>
-					</View>
-				);
-			})}
-		</ScrollView>
+		<View style={Styles.MainContainer}>
+			<Text style={[Styles.MainText, { paddingVertical: 10 }]}>Members</Text>
+			<UserList users={allMembers} navigation={navigation} />
+		</View>
 	);
 };
 

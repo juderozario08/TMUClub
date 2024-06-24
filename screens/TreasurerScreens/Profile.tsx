@@ -9,8 +9,7 @@ interface ProfileProps {
 	navigation: any;
 }
 
-const Profile: React.FC<ProfileProps> = ({ navigation }) => {
-
+const Profile: React.FC<ProfileProps> = () => {
 	const [userInfo, setUserInfo] = useState({
 		name: "",
 		email: "",

@@ -4,6 +4,7 @@ const classURI = "http://127.0.0.1:3000/classes";
 const loginURI = "http://127.0.0.1:3000/login";
 const signUpURI = "http://127.0.0.1:3000/signup";
 const userURI = "http://127.0.0.1:3000/users";
+const userRoleURI = "http://127.0.0.1:3000/users/role";
 const paymentURI = "http://127.0.0.1:3000/payment";
 
 export {
@@ -14,4 +15,5 @@ export {
 	signUpURI,
 	uri,
 	userURI,
+	userRoleURI,
 };

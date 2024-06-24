@@ -162,12 +162,21 @@ export const Styles = StyleSheet.create({
 		position: "absolute",
 		color: "#999",
 	},
+	CardsContainer: {
+		flex: 1,
+		flexDirection: "row",
+		flexWrap: "wrap",
+		width: "100%",
+		alignItems: "center",
+		justifyContent: "space-evenly",
+	},
 	Cards: {
-		width: "35%",
+		width: "40%",
 		borderWidth: 1,
 		borderColor: "darkgray",
+		padding: 5,
 	},
 	CardsText: {
-		color: "white",
+		color: defaultTextColor,
 	},
 });

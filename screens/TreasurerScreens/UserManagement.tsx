@@ -4,8 +4,7 @@ import MemberManagement from "./MemberManagement/MemberManagement";
 import CoachManagement from "./CoachManagement/CoachManagement";
 import TreasurerManagement from "./TreasurerManagement/TreasurerManagement";
 import UserDashboard from "./UserDashboard";
-import { backgroundColor, headerTitleColor } from "../../Colors";
-import { XCircle } from "react-native-feather";
+import { backgroundColor, headerTitleColor, theme } from "../../Colors";
 
 const Drawer = createDrawerNavigator();
 
@@ -23,10 +22,24 @@ const UserManagement = () => (
 			},
 			drawerStyle: {
 				backgroundColor: backgroundColor,
-				borderTopColor: "white",
-				borderRightColor: "white",
-				borderBottomColor: "white",
+				borderTopColor: theme === "dark" ? "white" : "black",
+				borderRightColor: theme === "dark" ? "white" : "black",
+				borderBottomColor: theme === "dark" ? "white" : "black",
 				borderWidth: 1,
+				borderTopRightRadius: 50,
+				borderBottomRightRadius: 50,
+				margin: 0,
+				padding: 0,
+			},
+			drawerItemStyle: {
+				borderTopColor: theme === "dark" ? "white" : "black",
+				borderTopWidth: 1,
+				borderBottomColor: theme === "dark" ? "white" : "black",
+				borderBottomWidth: 1,
+				borderLeftWidth: 0,
+				borderRightWidth: 0,
+				width: "100%",
+				alignItems: "stretch",
 			},
 			drawerLabelStyle: { color: headerTitleColor },
 			drawerType: "front",
