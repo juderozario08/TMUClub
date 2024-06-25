@@ -1,65 +1,63 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import {
 	KeyboardTypeOptions,
+	StyleSheet,
 	Text,
 	TextInput,
 	TextInputProps,
-	TouchableOpacity,
 	View,
 } from "react-native";
 import { Styles } from "../Colors";
 
 interface InputViewProps {
 	value: string | undefined;
-	setValue: React.Dispatch<React.SetStateAction<string | number>>;
+	onChangeText: any;
 	completionType: TextInputProps["autoComplete"];
 	keyboardType: KeyboardTypeOptions;
 	secured: boolean;
-	setSecureShow: React.Dispatch<React.SetStateAction<boolean>>;
-	secureShow: boolean;
 	capitalize: TextInputProps["autoCapitalize"];
-	WrappedComponent: React.ComponentType<any>;
-	WrappedSecureComponent: React.ComponentType<any>;
-	hint: string;
+	title: string;
+	error: string | null;
 }
 
-const InputView: React.FC<InputViewProps> = ({
+const InputView: React.FC<PropsWithChildren<InputViewProps>> = ({
 	value,
-	setValue,
+	onChangeText,
 	completionType,
 	keyboardType,
 	secured,
-	setSecureShow,
-	secureShow,
-	WrappedComponent,
-	WrappedSecureComponent,
-	hint,
+	title,
 	capitalize,
+	error,
+	children,
 }) => {
 	return (
-		<View style={Styles.InputBox}>
-			<Text style={Styles.InputBoxText}>{hint}</Text>
-			<TextInput
-				style={Styles.Input}
-				onChangeText={setValue}
-				value={value}
-				autoCapitalize={capitalize}
-				autoComplete={completionType}
-				keyboardType={keyboardType}
-				secureTextEntry={secured}
-			/>
-			{secured ? (
-				<TouchableOpacity
-					style={Styles.Feather}
-					onPress={() => setSecureShow(!secureShow)}
-				>
-					<WrappedSecureComponent />
-				</TouchableOpacity>
-			) : (
-				<WrappedComponent />
-			)}
+		<View>
+			<View style={Styles.InputBox}>
+				<Text style={Styles.InputBoxText}>{title}</Text>
+				<TextInput
+					style={Styles.Input}
+					onChangeText={onChangeText}
+					value={value}
+					autoCapitalize={capitalize}
+					autoComplete={completionType}
+					keyboardType={keyboardType}
+					secureTextEntry={secured}
+				/>
+				{children}
+			</View>
+			<View style={{ alignItems: "center", justifyContent: "center" }}>
+				{error ? <Text style={styles.errorBottomText}>{error}</Text> : null}
+			</View>
 		</View>
 	);
 };
 
 export default InputView;
+
+const styles = StyleSheet.create({
+	errorBottomText: {
+		color: "#EF4444",
+		left: 4,
+	},
+});

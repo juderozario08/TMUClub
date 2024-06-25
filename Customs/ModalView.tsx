@@ -1,19 +1,18 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import { Modal, Text, View } from "react-native";
 import { Styles } from "../Colors";
 
 interface ModalViewProps {
 	title: string;
 	isVisible: boolean;
-	setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
-	WrappedComponent: React.ComponentType<any>;
+	setIsVisible: any;
 }
 
-const ModalView: React.FC<ModalViewProps> = ({
+const ModalView: React.FC<PropsWithChildren<ModalViewProps>> = ({
 	isVisible,
 	title,
 	setIsVisible,
-	WrappedComponent,
+	children,
 }) => {
 	return (
 		<Modal
@@ -27,7 +26,7 @@ const ModalView: React.FC<ModalViewProps> = ({
 			<View style={Styles.ModalContainer}>
 				<View style={Styles.ModalContent}>
 					<Text style={Styles.ModalTitle}>{title}</Text>
-					<WrappedComponent />
+					{children}
 				</View>
 			</View>
 		</Modal>

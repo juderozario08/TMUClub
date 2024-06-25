@@ -5,13 +5,12 @@ import {
 	Platform,
 	StyleSheet,
 	Text,
-	TextInput,
 	TouchableOpacity,
 	View,
 	KeyboardTypeOptions,
 } from "react-native";
 import { Styles } from "../Colors";
-import { CheckCircle, X } from "react-native-feather";
+import { CheckSquare, X } from "react-native-feather";
 import { signUpURI } from "../globalRoutes";
 import axios from "axios";
 import {
@@ -21,7 +20,8 @@ import {
 	phoneNumberRegex,
 } from "../globalFunctions";
 import { TextInputProps } from "react-native-paper";
-import { allMembers } from "../globalDBValues";
+import InputView from "../Customs/InputBox";
+import SubmitButton from "../Customs/SubmitButton";
 
 interface SignUpProps {
 	navigation: any;
@@ -57,9 +57,8 @@ const SignUp: React.FC<SignUpProps> = ({ navigation }) => {
 
 	const handleSignup = async () => {
 		try {
-			const res = await axios.post(`${signUpURI}/member`, userData);
+			await axios.post(`${signUpURI}/member`, userData);
 			Alert.alert("User created successfully.");
-			allMembers.push(res.data);
 			navigation.navigate("Login");
 		} catch (err: any) {
 			if (err.response && err.response.status === 409)
@@ -93,7 +92,8 @@ const SignUp: React.FC<SignUpProps> = ({ navigation }) => {
 	const validatePhoneNumber = (text: string) => {
 		handleInput("phoneNumber", text);
 		handleValidity("phoneNumber", false);
-		if (text.match(phoneNumberRegex)) handleValidity("phoneNumber", true);
+		if (text.length === 10 && text.match(phoneNumberRegex))
+			handleValidity("phoneNumber", true);
 	};
 
 	const inputBoxes = [
@@ -140,90 +140,68 @@ const SignUp: React.FC<SignUpProps> = ({ navigation }) => {
 			>
 				{inputBoxes.map((inp, idx) => (
 					<View key={idx}>
-						<View style={[Styles.InputBox]}>
-							<Text style={Styles.InputBoxText}>{inp.placeholder}</Text>
-							<TextInput
-								style={Styles.Input}
-								onChangeText={inp.onChangeText}
-								value={inp.value}
-								autoCapitalize="none"
-								autoComplete={
-									inp.autoComplete as TextInputProps["autoComplete"]
-								}
-								keyboardType={inp.keyboardType}
-								secureTextEntry={inp.secureTextEntry}
-							/>
+						<InputView
+							value={inp.value}
+							onChangeText={inp.onChangeText}
+							completionType={inp.autoComplete}
+							keyboardType={inp.keyboardType}
+							secured={inp.secureTextEntry}
+							capitalize={"none"}
+							title={inp.placeholder}
+							error={inp.value.length < 1 || inp.valid ? null : inp.errorText}
+						>
 							{inp.value.length < 1 ? null : inp.valid ? (
-								<CheckCircle
-									fill={"none"}
+								<CheckSquare
 									stroke={"green"}
+									fill={"none"}
 									style={Styles.Feather}
 								/>
 							) : (
-								<X fill={"none"} stroke={"red"} style={Styles.Feather} />
+								<X stroke={"red"} fill={"none"} style={Styles.Feather} />
 							)}
-						</View>
-						<View>
-							{inp.value && !inp.valid ? (
-								<Text style={styles.errorBottomText}>{inp.errorText}</Text>
-							) : null}
-						</View>
+						</InputView>
 					</View>
 				))}
 
 				{/*This part is for the passwords*/}
-				<View>
-					<View style={Styles.InputBox}>
-						<Text style={Styles.InputBoxText}>{"Password: "}</Text>
-						<TextInput
-							style={Styles.Input}
-							onChangeText={validatePassword}
-							value={userData.password}
-							autoCapitalize="none"
-							autoComplete={"password"}
-							keyboardType={"default"}
-							secureTextEntry={!passwordShow}
-						/>
-						<TouchableOpacity
-							style={Styles.Feather}
-							onPress={() => setPasswordShow(!passwordShow)}
-						>
-							{userData.password.length < 1
-								? null
-								: determineEyeWithColor(userValidity.password, passwordShow)}
-						</TouchableOpacity>
-					</View>
-					<View>
-						{userData.password && !userValidity.password ? (
-							<Text style={styles.errorBottomText}>
-								{
-									"Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
-								}
-							</Text>
-						) : null}
-					</View>
-				</View>
-			</View>
-			<View style={{ width: "100%", paddingHorizontal: 40, marginBottom: 40 }}>
-				<TouchableOpacity
-					style={Styles.SubmitButton}
-					onPress={() => {
-						if (
-							userValidity.name &&
-							userValidity.email &&
-							userValidity.password &&
-							userValidity.phoneNumber
-						) {
-							handleSignup();
-						}
-					}}
+				<InputView
+					onChangeText={validatePassword}
+					value={userData.password}
+					capitalize={"none"}
+					completionType={"password" as TextInputProps["autoComplete"]}
+					keyboardType={"default"}
+					secured={!passwordShow}
+					error={
+						userData.password && !userValidity.password
+							? "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+							: null
+					}
+					title={"Password: "}
 				>
-					<Text style={Styles.SubmitButtonText}>Sign Up</Text>
-				</TouchableOpacity>
-				{error.length > 1 ? (
-					<Text style={Styles.SubmitButtonErrorText}>{error}</Text>
-				) : null}
+					<TouchableOpacity
+						style={Styles.Feather}
+						onPress={() => setPasswordShow(!passwordShow)}
+					>
+						{userData.password.length < 1
+							? null
+							: determineEyeWithColor(userValidity.password, passwordShow)}
+					</TouchableOpacity>
+				</InputView>
 			</View>
+			<SubmitButton
+				error={error}
+				pressed={() => {
+					if (
+						userValidity.name &&
+						userValidity.email &&
+						userValidity.password &&
+						userValidity.phoneNumber
+					) {
+						handleSignup();
+					}
+				}}
+				title={"Sign Up"}
+			/>
 			<View style={Styles.BottomTextContainer}>
 				<Text style={Styles.BottomText}>Already have an account?</Text>
 				<TouchableOpacity
