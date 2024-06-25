@@ -26,7 +26,6 @@ const MemberManagementHome: React.FC<MemberManagementHomeProps> = ({
 	}, []);
 	return (
 		<View style={Styles.MainContainer}>
-			<Text style={[Styles.MainText, { paddingVertical: 10 }]}>Members</Text>
 			<UserList users={allMembers} navigation={navigation} />
 		</View>
 	);

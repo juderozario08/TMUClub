@@ -163,18 +163,15 @@ export const Styles = StyleSheet.create({
 		color: "#999",
 	},
 	CardsContainer: {
-		flex: 1,
-		flexDirection: "row",
-		flexWrap: "wrap",
-		width: "100%",
-		alignItems: "center",
-		justifyContent: "space-evenly",
+		alignItems: "stretch",
+		justifyContent: "center",
 	},
 	Cards: {
-		width: "40%",
+		width: "100%",
 		borderWidth: 1,
 		borderColor: "darkgray",
-		padding: 5,
+		paddingVertical: 10,
+		marginVertical: 10,
 	},
 	CardsText: {
 		color: defaultTextColor,

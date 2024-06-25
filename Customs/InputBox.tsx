@@ -13,9 +13,9 @@ interface InputViewProps {
 	value: string | undefined;
 	onChangeText: any;
 	completionType: TextInputProps["autoComplete"];
-	keyboardType: KeyboardTypeOptions;
-	secured: boolean;
-	capitalize: TextInputProps["autoCapitalize"];
+	keyboardType?: KeyboardTypeOptions;
+	secured?: boolean;
+	capitalize?: TextInputProps["autoCapitalize"];
 	title: string;
 	error: string | null;
 }
@@ -39,10 +39,12 @@ const InputView: React.FC<PropsWithChildren<InputViewProps>> = ({
 					style={Styles.Input}
 					onChangeText={onChangeText}
 					value={value}
-					autoCapitalize={capitalize}
+					autoCapitalize={
+						capitalize || ("none" as TextInputProps["autoCapitalize"])
+					}
 					autoComplete={completionType}
-					keyboardType={keyboardType}
-					secureTextEntry={secured}
+					keyboardType={keyboardType || ("default" as KeyboardTypeOptions)}
+					secureTextEntry={secured || false}
 				/>
 				{children}
 			</View>
