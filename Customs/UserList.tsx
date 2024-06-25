@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 
 import { Text, View, ScrollView } from "react-native";
 import { Styles } from "../Colors";
@@ -8,9 +8,16 @@ interface UserListProps {
 	navigation: any;
 }
 
-const UserList: React.FC<UserListProps> = ({ users, navigation }) => {
+const UserList: React.FC<PropsWithChildren<UserListProps>> = ({
+	users,
+	navigation,
+}) => {
 	return (
-		<ScrollView contentContainerStyle={Styles.CardsContainer}>
+		<ScrollView
+			contentContainerStyle={[Styles.CardsContainer]}
+			showsVerticalScrollIndicator={false}
+			showsHorizontalScrollIndicator={false}
+		>
 			{users.length > 0 ? (
 				users.map((el: any, index: number) => (
 					<View key={index} style={[Styles.Cards]}>

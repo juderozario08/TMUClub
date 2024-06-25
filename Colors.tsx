@@ -1,4 +1,9 @@
-import { Appearance, ColorSchemeName, StyleSheet } from "react-native";
+import {
+	Appearance,
+	ColorSchemeName,
+	StatusBar,
+	StyleSheet,
+} from "react-native";
 
 // Get the theme of the device
 export const theme: ColorSchemeName = Appearance.getColorScheme();
@@ -30,6 +35,7 @@ export const Styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		padding: 24,
+		paddingTop: StatusBar.currentHeight,
 		gap: 10,
 	},
 	MainText: {
@@ -163,8 +169,8 @@ export const Styles = StyleSheet.create({
 		color: "#999",
 	},
 	CardsContainer: {
-		alignItems: "stretch",
-		justifyContent: "center",
+		width: "100%",
+		padding: 24,
 	},
 	Cards: {
 		width: "100%",

@@ -4,10 +4,26 @@ const mongoose = require("mongoose");
 require("../models/users");
 const User = mongoose.model("User");
 
-router.get("/", async (_, res) => {
+router.get("/allRoles", async (_, res) => {
 	try {
 		const users = await User.find({});
-		res.status(200).send(users);
+		let members = [];
+		let coaches = [];
+		let treasurers = [];
+		for (let i = 0; i < users.length; i++) {
+			if (users[i].role === "member") {
+				members.push(users[i]);
+			} else if (users[i].role === "coach") {
+				coaches.push(users[i]);
+			} else if (users[i].role === "treasurer") {
+				treasurers.push(users[i]);
+			}
+		}
+		res.status(200).send({
+			members: members,
+			coaches: coaches,
+			treasurers: treasurers,
+		});
 	} catch (err) {
 		console.log(err.message);
 		res.status(500).send({ status: "error", message: err.message });
