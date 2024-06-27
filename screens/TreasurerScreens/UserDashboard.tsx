@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, Text } from "react-native";
 import { Styles } from "../../Colors";
 import axios from "axios";
