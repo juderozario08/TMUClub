@@ -10,10 +10,6 @@ import { Pressable } from "react-native";
 
 const Drawer = createDrawerNavigator();
 
-interface CustomHeaderProps {
-	navigation: any;
-}
-
 const UserManagement = () => (
 	<Drawer.Navigator
 		initialRouteName={"User Dashboard"}
@@ -72,13 +68,5 @@ const UserManagement = () => (
 		/>
 	</Drawer.Navigator>
 );
-
-const CustomHeader: React.FC<CustomHeaderProps> = ({ navigation }) => {
-	return (
-		<Pressable onPress={() => navigation.openDrawer()}>
-			<Menu color={headerTitleColor} />
-		</Pressable>
-	);
-};
 
 export default UserManagement;
