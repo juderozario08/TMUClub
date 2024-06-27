@@ -10,63 +10,64 @@ import { Pressable } from "react-native";
 
 const Drawer = createDrawerNavigator();
 
-const UserManagement = () => (
-	<Drawer.Navigator
-		initialRouteName={"User Dashboard"}
-		screenOptions={({ navigation }) => ({
-			headerTitleStyle: {
-				color: headerTitleColor,
-				fontWeight: "bold",
-				fontSize: 20,
-			},
-			headerStyle: {
-				backgroundColor: backgroundColor,
-			},
-			headerLeft: () => (
-				<Pressable
-					onPress={() => {
-						navigation.toggleDrawer();
-					}}
-					style={{ marginLeft: 20 }}
-				>
-					<Menu color={headerTitleColor} />
-				</Pressable>
-			),
-			drawerStyle: {
-				backgroundColor: backgroundColor,
-				borderTopColor: theme === "dark" ? "white" : "black",
-				borderRightColor: theme === "dark" ? "white" : "black",
-				borderBottomColor: theme === "dark" ? "white" : "black",
-				borderWidth: 1,
-				borderTopRightRadius: 50,
-				borderBottomRightRadius: 50,
-				margin: 0,
-				padding: 0,
-			},
-			drawerItemStyle: {
-				borderTopColor: theme === "dark" ? "white" : "black",
-				borderTopWidth: 1,
-				borderBottomColor: theme === "dark" ? "white" : "black",
-				borderBottomWidth: 1,
-				borderLeftWidth: 0,
-				borderRightWidth: 0,
-				width: "100%",
-				alignItems: "stretch",
-			},
-			drawerLabelStyle: { color: headerTitleColor },
-			drawerType: "front",
-			drawerStatusBarAnimation: "fade",
-			swipeEnabled: true,
-		})}
-	>
-		<Drawer.Screen name={"User Dashboard"} component={UserDashboard} />
-		<Drawer.Screen name={"Member Management"} component={MemberManagement} />
-		<Drawer.Screen name={"Coach Management"} component={CoachManagement} />
-		<Drawer.Screen
-			name={"Trasurer Management"}
-			component={TreasurerManagement}
-		/>
-	</Drawer.Navigator>
-);
+const UserManagement = () => {
+	return (
+		<Drawer.Navigator
+			initialRouteName={"User Dashboard"}
+			screenOptions={({ navigation }) => ({
+				headerTitleStyle: {
+					color: headerTitleColor,
+					fontWeight: "bold",
+					fontSize: 20,
+				},
+				headerStyle: {
+					backgroundColor: backgroundColor,
+				},
+				headerLeft: () => (
+					<Pressable
+						onPress={() => {
+							navigation.toggleDrawer();
+						}}
+						style={{ marginLeft: 20 }}
+					>
+						<Menu color={headerTitleColor} />
+					</Pressable>
+				),
+				drawerStyle: {
+					backgroundColor: backgroundColor,
+					borderTopColor: "gray",
+					borderRightColor: "gray",
+					borderWidth: 1,
+					height: "88%",
+					top: "12%",
+					margin: 0,
+					padding: 0,
+				},
+				drawerItemStyle: {
+					borderTopColor: theme === "dark" ? "white" : "black",
+					borderTopWidth: 1,
+					borderBottomColor: theme === "dark" ? "white" : "black",
+					borderBottomWidth: 1,
+					borderLeftWidth: 0,
+					borderRightWidth: 0,
+					width: "100%",
+					alignItems: "stretch",
+				},
+				drawerLabelStyle: { color: headerTitleColor },
+				drawerType: "front",
+				drawerStatusBarAnimation: "fade",
+				swipeEnabled: true,
+			})}
+		>
+			<Drawer.Screen name={"User Dashboard"} component={UserDashboard} />
+			<Drawer.Screen name={"Member Management"} component={MemberManagement} />
+			<Drawer.Screen name={"Coach Management"} component={CoachManagement} />
+			<Drawer.Screen
+				name={"Trasurer Management"}
+				component={TreasurerManagement}
+			/>
+		</Drawer.Navigator>
+	);
+};
 
 export default UserManagement;
