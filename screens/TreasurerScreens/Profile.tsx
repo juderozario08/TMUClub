@@ -4,6 +4,7 @@ import { Styles } from "../../Colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { userURI } from "../../globalRoutes";
+import Loading from "../../Customs/Loading";
 
 interface ProfileProps {
 	navigation: any;
@@ -33,20 +34,20 @@ const Profile: React.FC<ProfileProps> = () => {
 		fetchUserInfo();
 	}, []);
 
-	return userInfo.name ? (
+	return (
 		<View style={Styles.MainContainer}>
 			<Text style={Styles.MainText}>Profile Screen</Text>
-			<View>
-				<Text style={Styles.MainSubText}>Email: {userInfo.email}</Text>
-				<Text style={Styles.MainSubText}>Username: {userInfo.name}</Text>
-				<Text style={Styles.MainSubText}>
-					Phone Number: {userInfo.phoneNumber}
-				</Text>
-			</View>
-		</View>
-	) : (
-		<View style={Styles.MainContainer}>
-			<Text style={[Styles.WelcomeText]}>Is Loading</Text>
+			{userInfo.name.length > 0 ? (
+				<View>
+					<Text style={Styles.MainSubText}>Email: {userInfo.email}</Text>
+					<Text style={Styles.MainSubText}>Username: {userInfo.name}</Text>
+					<Text style={Styles.MainSubText}>
+						Phone Number: {userInfo.phoneNumber}
+					</Text>
+				</View>
+			) : (
+				<Loading />
+			)}
 		</View>
 	);
 };

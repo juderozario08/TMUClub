@@ -4,7 +4,7 @@ import {
 	Platform,
 	Text,
 	TextInput,
-	TouchableOpacity,
+	Pressable,
 	View,
 } from "react-native";
 import { Styles } from "../Colors";
@@ -99,31 +99,31 @@ const Login: React.FC<LoginProps> = ({ navigation }): React.JSX.Element => {
 						autoCapitalize="none"
 						autoComplete="password"
 					/>
-					<TouchableOpacity
+					<Pressable
 						style={Styles.Feather}
 						onPress={() => {
 							setPasswordShow(!passwordShow);
 						}}
 					>
 						{determineEye()}
-					</TouchableOpacity>
+					</Pressable>
 				</View>
 			</View>
 			<View style={{ width: "100%", paddingHorizontal: 40, marginBottom: 20 }}>
-				<TouchableOpacity style={Styles.SubmitButton} onPress={handleLogin}>
+				<Pressable style={Styles.SubmitButton} onPress={handleLogin}>
 					<Text style={Styles.SubmitButtonText}>Login</Text>
-				</TouchableOpacity>
+				</Pressable>
 				<Text style={Styles.SubmitButtonErrorText}>{error}</Text>
 			</View>
 			<View style={Styles.BottomTextContainer}>
 				<Text style={Styles.BottomText}>Don't have an account? </Text>
-				<TouchableOpacity
+				<Pressable
 					onPress={() => {
 						navigation.navigate("SignUp");
 					}}
 				>
 					<Text style={Styles.BottomTextLink}>Sign Up</Text>
-				</TouchableOpacity>
+				</Pressable>
 			</View>
 		</KeyboardAvoidingView>
 	);

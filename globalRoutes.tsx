@@ -1,19 +1,25 @@
-const uri = "http://127.0.0.1:3000";
-const classCreateURI = "http://127.0.0.1:3000/classes/create";
-const classURI = "http://127.0.0.1:3000/classes";
-const loginURI = "http://127.0.0.1:3000/login";
-const signUpURI = "http://127.0.0.1:3000/signup";
-const userURI = "http://127.0.0.1:3000/users";
-const userRoleURI = "http://127.0.0.1:3000/users/role";
-const paymentURI = "http://127.0.0.1:3000/payment";
+import { Platform } from "react-native";
+
+const isAndroid = Platform.OS === "android";
+
+const uri = isAndroid ? `http://10.0.0.26:3000` : `http://127.0.0.1:3000`;
+const classCreateURI = `${uri}/classes/create`;
+const classURI = `${uri}/classes`;
+const loginURI = `${uri}/login`;
+const signUpURI = `${uri}/signup`;
+const userURI = `${uri}/users`;
+const usersURI = `${uri}/users/allRoles`;
+const userRoleURI = `${uri}/users/role`;
+const paymentURI = `${uri}/payment`;
 
 export {
-	classCreateURI,
-	classURI,
-	loginURI,
-	paymentURI,
-	signUpURI,
-	uri,
-	userURI,
-	userRoleURI,
+    classCreateURI,
+    classURI,
+    usersURI,
+    loginURI,
+    paymentURI,
+    signUpURI,
+    uri,
+    userURI,
+    userRoleURI,
 };

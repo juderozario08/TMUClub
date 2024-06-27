@@ -5,13 +5,19 @@ import CoachManagement from "./CoachManagement/CoachManagement";
 import TreasurerManagement from "./TreasurerManagement/TreasurerManagement";
 import UserDashboard from "./UserDashboard";
 import { backgroundColor, headerTitleColor, theme } from "../../Colors";
+import { Menu } from "react-native-feather";
+import { Pressable } from "react-native";
 
 const Drawer = createDrawerNavigator();
+
+interface CustomHeaderProps {
+	navigation: any;
+}
 
 const UserManagement = () => (
 	<Drawer.Navigator
 		initialRouteName={"User Dashboard"}
-		screenOptions={{
+		screenOptions={({ navigation }) => ({
 			headerTitleStyle: {
 				color: headerTitleColor,
 				fontWeight: "bold",
@@ -20,6 +26,16 @@ const UserManagement = () => (
 			headerStyle: {
 				backgroundColor: backgroundColor,
 			},
+			headerLeft: () => (
+				<Pressable
+					onPress={() => {
+						navigation.toggleDrawer();
+					}}
+					style={{ marginLeft: 20 }}
+				>
+					<Menu color={headerTitleColor} />
+				</Pressable>
+			),
 			drawerStyle: {
 				backgroundColor: backgroundColor,
 				borderTopColor: theme === "dark" ? "white" : "black",
@@ -43,7 +59,9 @@ const UserManagement = () => (
 			},
 			drawerLabelStyle: { color: headerTitleColor },
 			drawerType: "front",
-		}}
+			drawerStatusBarAnimation: "fade",
+			swipeEnabled: true,
+		})}
 	>
 		<Drawer.Screen name={"User Dashboard"} component={UserDashboard} />
 		<Drawer.Screen name={"Member Management"} component={MemberManagement} />
@@ -54,5 +72,13 @@ const UserManagement = () => (
 		/>
 	</Drawer.Navigator>
 );
+
+const CustomHeader: React.FC<CustomHeaderProps> = ({ navigation }) => {
+	return (
+		<Pressable onPress={() => navigation.openDrawer()}>
+			<Menu color={headerTitleColor} />
+		</Pressable>
+	);
+};
 
 export default UserManagement;

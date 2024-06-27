@@ -1,21 +1,21 @@
-import React, { useEffect } from "react";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import React from "react";
 import { Grid, Layers, User, Users } from "react-native-feather";
 import { backgroundColor, tabColor } from "../../Colors";
 import Dashboard from "./Dashboard";
 import UserManagement from "./UserManagement";
-import ClassManagement from "./Classes";
 import Profile from "./Profile";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import ClassManagement from "./ClassManagement/ClassManagement";
 
-const TopTab = createMaterialTopTabNavigator();
+const BottomTab = createBottomTabNavigator();
 
 const TreasurerScreen = () => {
 	return (
-		<TopTab.Navigator
+		<BottomTab.Navigator
 			initialRouteName="Dashboard"
 			backBehavior="history"
-			tabBarPosition="bottom"
 			screenOptions={{
+				headerShown: false,
 				tabBarActiveTintColor: tabColor,
 				tabBarInactiveTintColor: "darkgray",
 				tabBarStyle: { backgroundColor: backgroundColor },
@@ -24,7 +24,7 @@ const TreasurerScreen = () => {
 				},
 			}}
 		>
-			<TopTab.Screen
+			<BottomTab.Screen
 				name="Dashboard"
 				component={Dashboard}
 				options={() => ({
@@ -34,7 +34,7 @@ const TreasurerScreen = () => {
 					},
 				})}
 			/>
-			<TopTab.Screen
+			<BottomTab.Screen
 				name="Classes"
 				component={ClassManagement}
 				options={() => ({
@@ -44,7 +44,7 @@ const TreasurerScreen = () => {
 					},
 				})}
 			/>
-			<TopTab.Screen
+			<BottomTab.Screen
 				name="User Management"
 				component={UserManagement}
 				options={() => ({
@@ -54,7 +54,7 @@ const TreasurerScreen = () => {
 					},
 				})}
 			/>
-			<TopTab.Screen
+			<BottomTab.Screen
 				name="Profile"
 				component={Profile}
 				options={() => ({
@@ -64,7 +64,7 @@ const TreasurerScreen = () => {
 					},
 				})}
 			/>
-		</TopTab.Navigator>
+		</BottomTab.Navigator>
 	);
 };
 

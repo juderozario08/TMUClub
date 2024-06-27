@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import { Styles } from "../Colors";
 
 interface SubmitButtonProps {
@@ -15,9 +15,16 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
 }) => {
 	return (
 		<View style={{ width: "100%", paddingHorizontal: 40, marginBottom: 40 }}>
-			<TouchableOpacity style={Styles.SubmitButton} onPress={pressed}>
+			<Pressable
+				style={Styles.SubmitButton}
+				onPress={pressed}
+				android_ripple={{
+					borderless: false,
+					radius: 30,
+				}}
+			>
 				<Text style={Styles.SubmitButtonText}>{title}</Text>
-			</TouchableOpacity>
+			</Pressable>
 			{error.length > 1 ? (
 				<Text style={Styles.SubmitButtonErrorText}>{error}</Text>
 			) : null}
