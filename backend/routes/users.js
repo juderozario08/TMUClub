@@ -6,15 +6,18 @@ const User = mongoose.model("User");
 
 router.get("/allRoles", async (_, res) => {
 	try {
-		console.log();
 		const users = await User.find({});
 		let members = [];
 		let coaches = [];
 		let treasurers = [];
 		for (let i = 0; i < users.length; i++) {
-			if (users[i].role === "member") members.push(users[i]);
-			else if (users[i].role === "coach") coaches.push(users[i]);
-			else if (users[i].role === "treasurer") treasurers.push(users[i]);
+			if (users[i].role === "member") {
+				members.push(users[i]);
+			} else if (users[i].role === "coach") {
+				coaches.push(users[i]);
+			} else if (users[i].role === "treasurer") {
+				treasurers.push(users[i]);
+			}
 		}
 		res.status(200).send({
 			members: members,
