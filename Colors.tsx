@@ -169,6 +169,7 @@ export const Styles = StyleSheet.create({
     },
     CardsContainer: {
         width: "100%",
+        paddingHorizontal: 10,
     },
     Cards: {
         width: "100%",
