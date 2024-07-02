@@ -1,7 +1,6 @@
 import { Platform } from "react-native";
 
 const isAndroid = Platform.OS === "android";
-
 const uri = isAndroid ? `http://10.0.0.26:3000` : `http://127.0.0.1:3000`;
 const classCreateURI = `${uri}/classes/create`;
 const classURI = `${uri}/classes`;

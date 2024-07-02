@@ -10,7 +10,17 @@ import { Pressable } from "react-native";
 
 const Drawer = createDrawerNavigator();
 
-const UserManagement = () => {
+const UserManagement = ({ route, navigation }) => {
+	const {
+		user,
+		setUser,
+		allMembers,
+		setAllMembers,
+		allCoaches,
+		setAllCoaches,
+		allTreasurers,
+		setAllTreasurers,
+	} = route.params;
 	return (
 		<Drawer.Navigator
 			initialRouteName={"User Dashboard"}
@@ -38,8 +48,6 @@ const UserManagement = () => {
 					borderTopColor: "gray",
 					borderRightColor: "gray",
 					borderWidth: 1,
-					height: "88%",
-					top: "12%",
 					margin: 0,
 					padding: 0,
 				},
@@ -50,8 +58,6 @@ const UserManagement = () => {
 					borderBottomWidth: 1,
 					borderLeftWidth: 0,
 					borderRightWidth: 0,
-					width: "100%",
-					alignItems: "stretch",
 				},
 				drawerLabelStyle: { color: headerTitleColor },
 				drawerType: "front",
@@ -59,7 +65,20 @@ const UserManagement = () => {
 				swipeEnabled: true,
 			})}
 		>
-			<Drawer.Screen name={"User Dashboard"} component={UserDashboard} />
+			<Drawer.Screen
+				name={"User Dashboard"}
+				initialParams={{
+					user,
+					setUser,
+					allMembers,
+					setAllMembers,
+					allCoaches,
+					setAllCoaches,
+					allTreasurers,
+					setAllTreasurers,
+				}}
+				component={UserDashboard}
+			/>
 			<Drawer.Screen name={"Member Management"} component={MemberManagement} />
 			<Drawer.Screen name={"Coach Management"} component={CoachManagement} />
 			<Drawer.Screen
