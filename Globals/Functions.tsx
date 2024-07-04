@@ -26,7 +26,7 @@ const emailRegex: RegExp =
 const passwordRegex: RegExp =
 	/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&\.])[A-Za-z\d@$!%*?&\.]{8,}$/;
 const phoneNumberRegex: RegExp =
-	/^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$/;
+	/^[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]$/;
 
 export {
 	emailRegex,

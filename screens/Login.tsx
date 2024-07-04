@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Styles } from "../Colors";
 import axios from "axios";
-import { loginURI } from "../globalRoutes";
+import { LoginURI } from "../Globals/Routes";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Eye, EyeOff } from "react-native-feather";
 
@@ -31,7 +31,7 @@ const Login: React.FC<LoginProps> = ({ navigation }): React.JSX.Element => {
     };
     const handleLogin = () => {
         axios
-            .post(`${loginURI}`, {
+            .post(`${LoginURI}`, {
                 email: email,
                 password: password,
             })

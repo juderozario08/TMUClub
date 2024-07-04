@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import {
-    Text, Pressable,
-    View
-} from "react-native";
+import { Text, Pressable, View } from "react-native";
 import { Styles } from "../../Colors";
 import axios from "axios";
-import { classCreateURI } from "../../globalRoutes";
-import ModalView from "../../Customs/ModalView";
+import { ClassCreateURI } from "../../Globals/Routes";
 
 const ClassManagement = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -16,11 +12,11 @@ const ClassManagement = () => {
         date: new Date(),
         participants: "",
     });
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string>("");
 
     const addClass = async () => {
         await axios
-            .post(`${classCreateURI}`, classData)
+            .post(`${ClassCreateURI}`, classData)
             .then((res) => {
                 if (res.status === 200) console.log("Class Added");
             })
@@ -47,16 +43,8 @@ const ClassManagement = () => {
                     <Text style={Styles.SubmitButtonText}>Add Class</Text>
                 </Pressable>
             </View>
-            <ModalView
-                isVisible={isVisible}
-                setIsVisible={setIsVisible}
-                title="Add Class"
-            >
-            </ModalView>
-            );
+        </View>
+    );
 };
 
-            export default ClassManagement;
-        </>);
-};
-
+export default ClassManagement;

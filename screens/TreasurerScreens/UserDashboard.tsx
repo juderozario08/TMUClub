@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, Text } from "react-native";
 import { Styles } from "../../Colors";
 import axios from "axios";
-import { usersURI } from "../../globalRoutes";
+import { UsersURI } from "../../Globals/Routes";
 import UserListCard from "../../Customs/UserList";
 import Loading from "../../Customs/Loading";
 
@@ -16,7 +16,7 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ navigation, route }) => {
     const [allTreasurers, setAllTreasurers] = useState<any[]>([]);
     const fetchAllUsers = async () => {
         await axios
-            .get(`${usersURI}`)
+            .get(`${UsersURI}`)
             .then((res: any) => {
                 setAllMembers(res.data.members);
                 setAllCoaches(res.data.coaches);
@@ -44,6 +44,7 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ navigation, route }) => {
                         users={allMembers}
                         navigation={navigation}
                         none_found={"members"}
+                        setUsers={setAllMembers}
                     />
                     <Text style={[Styles.MainText, { paddingVertical: 20 }]}>
                         Coaches
@@ -52,6 +53,7 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ navigation, route }) => {
                         users={allCoaches}
                         navigation={navigation}
                         none_found={"coaches"}
+                        setUsers={setAllCoaches}
                     />
                     <Text style={[Styles.MainText, { paddingVertical: 20 }]}>
                         Treasurers
@@ -60,6 +62,7 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ navigation, route }) => {
                         users={allTreasurers}
                         navigation={navigation}
                         none_found={"treasurers"}
+                        setUsers={setAllTreasurers}
                     />
                 </ScrollView>
             ) : (

@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import {
-    Text, Pressable,
-    View
-} from "react-native";
+import { Text, Pressable, View } from "react-native";
 import { Styles } from "../../Colors";
 import axios from "axios";
-import { classCreateURI } from "../../globalRoutes";
+import { ClassCreateURI } from "../../Globals/Routes";
 import ModalView from "../../Customs/ModalView";
 
 const ClassManagement = () => {
@@ -20,7 +17,7 @@ const ClassManagement = () => {
 
     const addClass = async () => {
         await axios
-            .post(`${classCreateURI}`, classData)
+            .post(`${ClassCreateURI}`, classData)
             .then((res) => {
                 if (res.status === 200) console.log("Class Added");
             })
@@ -51,12 +48,9 @@ const ClassManagement = () => {
                 isVisible={isVisible}
                 setIsVisible={setIsVisible}
                 title="Add Class"
-            >
-            </ModalView>
-            );
+            ></ModalView>
+        </View>
+    );
 };
 
-            export default ClassManagement;
-        </>);
-};
-
+export default ClassManagement;

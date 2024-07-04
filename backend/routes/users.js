@@ -58,8 +58,9 @@ router
 	})
 	.put(async (req, res) => {
 		const { id } = req.params;
+		console.log(id);
 		try {
-			const user = await User.findByIdAndUpdate(id, req.body, { new: true });
+			const user = await User.findByIdAndUpdate(id, req.body);
 			if (!user) {
 				return res.status(404).send("User not found.");
 			}

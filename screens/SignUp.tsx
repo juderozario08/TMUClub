@@ -11,14 +11,14 @@ import {
 } from "react-native";
 import { Styles } from "../Colors";
 import { CheckSquare, X } from "react-native-feather";
-import { signUpURI } from "../globalRoutes";
+import { SignUpURI } from "../Globals/Routes";
 import axios from "axios";
 import {
     determineEyeWithColor,
     emailRegex,
     passwordRegex,
     phoneNumberRegex,
-} from "../globalFunctions";
+} from "../Globals/Functions";
 import { TextInputProps } from "react-native-paper";
 import InputView from "../Customs/InputBox";
 import SubmitButton from "../Customs/SubmitButton";
@@ -57,7 +57,7 @@ const SignUp: React.FC<SignUpProps> = ({ navigation }) => {
 
     const handleSignup = async () => {
         try {
-            await axios.post(`${signUpURI}/member`, userData);
+            await axios.post(`${SignUpURI}/member`, userData);
             Alert.alert("User created successfully.");
             navigation.navigate("Login");
         } catch (err: any) {

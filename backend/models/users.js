@@ -18,6 +18,9 @@ const userSchema = new mongoose.Schema(
 		classes: [
 			{ type: mongoose.Schema.Types.ObjectId, ref: "Class", required: false },
 		],
+		payments: [
+			{ type: mongoose.Schema.Types.ObjectId, ref: "Payment", required: false },
+		],
 	},
 	{
 		collection: "User",
