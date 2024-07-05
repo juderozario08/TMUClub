@@ -169,10 +169,11 @@ export const Styles = StyleSheet.create({
     },
     CardsContainer: {
         width: "100%",
+        alignItems: "center",
         paddingHorizontal: 10,
     },
     Cards: {
-        width: "100%",
+        width: "90%",
         borderWidth: 1,
         borderColor: "darkgray",
         borderRadius: 20,

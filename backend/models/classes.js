@@ -10,6 +10,7 @@ const classSchema = new mongoose.Schema(
         },
         date: { type: Date, required: true },
         participants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+        cost: { type: Number, required: true },
     },
     {
         collection: "Classes",
