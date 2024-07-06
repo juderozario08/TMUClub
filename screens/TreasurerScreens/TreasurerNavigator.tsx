@@ -46,9 +46,7 @@ const TreasurerNavigator = () => {
                 tabBarActiveTintColor: tabColor,
                 tabBarInactiveTintColor: "darkgray",
                 tabBarStyle: { backgroundColor: backgroundColor },
-                tabBarLabel: () => {
-                    return null;
-                },
+                tabBarLabel: () => null,
             }}
         >
             <BottomTab.Screen

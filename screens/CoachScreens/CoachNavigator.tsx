@@ -8,7 +8,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const BottomTab = createBottomTabNavigator();
 
-const MemberNavigator = () => {
+const CoachNavigator = () => {
     return (
         <BottomTab.Navigator
             initialRouteName="Dashboard"
@@ -53,4 +53,4 @@ const MemberNavigator = () => {
     );
 };
 
-export default MemberNavigator;
+export default CoachNavigator;
