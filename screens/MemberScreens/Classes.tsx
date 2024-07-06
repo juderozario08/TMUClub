@@ -5,7 +5,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 
 const TopTab = createMaterialTopTabNavigator();
 
-const Classes = ({ navigator }) => {
+const Classes = () => {
     return (
         <View style={Styles.MainContainer}>
             <Text style={Styles.WelcomeText}>Classes</Text>
