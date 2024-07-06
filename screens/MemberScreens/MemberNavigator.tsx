@@ -8,7 +8,7 @@ import { theme } from "../../Colors";
 
 const TopTab = createMaterialTopTabNavigator();
 
-const MemberScreen = () => {
+const MemberNavigator = () => {
     return (
         <TopTab.Navigator
             initialRouteName="Dashboard"
@@ -54,4 +54,4 @@ const MemberScreen = () => {
     );
 };
 
-export default MemberScreen;
+export default MemberNavigator;

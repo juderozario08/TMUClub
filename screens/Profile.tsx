@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 import { Styles } from "../Colors";
 import Loading from "../Customs/Loading";
 import { FetchUser } from "../Globals/FetchFunctions";
-import { User } from "../Globals/AppValues";
+import { UserInfo } from "../Globals/AppValues";
 import { UserType } from "../Customs/Types";
 
 interface ProfileProps {
@@ -11,7 +11,7 @@ interface ProfileProps {
 }
 
 const Profile: React.FC<ProfileProps> = () => {
-    const [user, setUser] = useState<UserType>(User);
+    const [user, setUser] = useState<UserType>(UserInfo);
     useEffect(() => {
         FetchUser(setUser);
     }, []);

@@ -19,7 +19,7 @@ import Loading from "../../Customs/Loading";
 
 const BottomTab = createBottomTabNavigator();
 
-const TreasurerScreen = () => {
+const TreasurerNavigator = () => {
     const [user, setUser] = useState<UserType>(UserInfo);
     useEffect(() => {
         if (user.name.length === 0) FetchUser(setUser);
@@ -97,4 +97,4 @@ const TreasurerScreen = () => {
     );
 };
 
-export default TreasurerScreen;
+export default TreasurerNavigator;
