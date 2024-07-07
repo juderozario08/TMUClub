@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, View } from "react-native";
+import { Pressable, SafeAreaView, Text, View } from "react-native";
 import { Styles } from "../../../Colors";
 import UserList from "../../../Customs/UserList";
 import { FetchMembers } from "../../../Globals/FetchFunctions";
@@ -27,6 +27,9 @@ const MemberManagementHome: React.FC<MemberManagementHomeProps> = ({
 				setUsers={undefined}
 				none_found={""}
 			/>
+			<Pressable style={Styles.SubmitButton} onPress={() => {navigation.navigate("Member Add")}}>
+				<Text style={Styles.SubmitButtonText}>Add Member</Text>
+			</Pressable>
 		</SafeAreaView>
 	);
 };
