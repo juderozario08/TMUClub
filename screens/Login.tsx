@@ -12,9 +12,13 @@ import axios from "axios";
 import { LoginURI } from "../Globals/Routes";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Eye, EyeOff } from "react-native-feather";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+type RootStackParamList = {};
+type LoginNavType = NativeStackNavigationProp<RootStackParamList>;
 
 interface LoginProps {
-    navigation: any;
+    navigation: LoginNavType;
 }
 
 const Login: React.FC<LoginProps> = ({ navigation }): React.JSX.Element => {
@@ -39,11 +43,11 @@ const Login: React.FC<LoginProps> = ({ navigation }): React.JSX.Element => {
                 if (res.status === 200) {
                     AsyncStorage.setItem("id", res.data.id);
                     if (res.data.role === "member") {
-                        navigation.navigate(`Member Screen`);
+                        navigation.navigate(`Member Screen` as never);
                     } else if (res.data.role === "coach") {
-                        navigation.navigate("Coach Screen");
+                        navigation.navigate("Coach Screen" as never);
                     } else if (res.data.role === "treasurer") {
-                        navigation.navigate("Treasurer Screen");
+                        navigation.navigate("Treasurer Screen" as never);
                     }
                 }
             })
@@ -119,7 +123,7 @@ const Login: React.FC<LoginProps> = ({ navigation }): React.JSX.Element => {
                 <Text style={Styles.BottomText}>Don't have an account? </Text>
                 <Pressable
                     onPress={() => {
-                        navigation.navigate("SignUp");
+                        navigation.navigate("SignUp" as never);
                     }}
                 >
                     <Text style={Styles.BottomTextLink}>Sign Up</Text>

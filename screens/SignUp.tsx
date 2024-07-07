@@ -22,17 +22,26 @@ import {
 import { TextInputProps } from "react-native-paper";
 import InputView from "../Customs/InputBox";
 import SubmitButton from "../Customs/SubmitButton";
+import { UserType } from "../Customs/Types";
+import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
+
+type RootStackParamList = {};
+type SignUpType = NativeStackNavigationProp<RootStackParamList>;
 
 interface SignUpProps {
-    navigation: any;
+    navigation: SignUpType;
 }
 
 const SignUp: React.FC<SignUpProps> = ({ navigation }) => {
-    const [userData, setUserData] = useState({
+    const [userData, setUserData] = useState<UserType>({
         name: "",
         email: "",
         password: "",
         phoneNumber: "",
+        role: "member",
+        classes: [],
+        payments: [],
+        balance: 0,
     });
     const [userValidity, setUserValidity] = useState({
         name: false,

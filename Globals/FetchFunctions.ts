@@ -63,12 +63,32 @@ const FetchCoaches = async (setAllCoaches: any) => {
         });
 };
 
-const FetchTreasurers = async (SetAllTreasurers: any) => {
+const FetchTreasurers = async (setAllTreasurers: any) => {
     await axios
         .get(`${UserRoleURI}/treasurer`)
         .then((res: any) => {
-            SetAllCoaches(res.data);
-            SetAllTreasurers(AllTreasurers);
+            SetAllTreasurers(res.data);
+            setAllTreasurers(AllTreasurers);
+        })
+        .catch((err: any) => {
+            console.log(err.message);
+        });
+};
+
+const FetchUsers = async (setUsers: any, role: string) => {
+    await axios
+        .get(`${UserRoleURI}/treasurer`)
+        .then((res: any) => {
+            if (role === "member") {
+                SetAllMembers(res.data);
+                setUsers(AllMembers);
+            } else if (role === "coach") {
+                SetAllCoaches(res.data);
+                setUsers(AllCoaches);
+            } else {
+                SetAllTreasurers(res.data);
+                setUsers(AllTreasurers);
+            }
         })
         .catch((err: any) => {
             console.log(err.message);
@@ -125,5 +145,6 @@ export {
     FetchTreasurers,
     FetchPayments,
     FetchClasses,
+    FetchUsers,
     FetchAllUsers,
 };
