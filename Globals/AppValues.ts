@@ -17,8 +17,14 @@ let UserInfo: UserType = {
     balance: 0,
 };
 let Action = ACTION.SIGNUP;
-let Role = ROLE.Member;
+let Role: string = ROLE.Member;
 
+const SetRole = (role: string) => {
+    Role = role;
+};
+const SetAction = (action: number) => {
+    Action = action;
+};
 const SetUser = (values: any) => {
     UserInfo = values;
 };
@@ -58,4 +64,6 @@ export {
     SetAllTreasurers,
     SetPayments,
     SetClasses,
+    SetRole,
+    SetAction,
 };

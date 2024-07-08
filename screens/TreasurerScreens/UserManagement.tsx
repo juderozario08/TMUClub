@@ -5,10 +5,14 @@ import { backgroundColor, headerTitleColor, theme } from "../../Colors";
 import { Menu } from "react-native-feather";
 import { Pressable } from "react-native";
 import UserRoleManagement from "./UserRoleManagement";
+import { SetRole } from "../../Globals/AppValues";
 
 const Drawer = createDrawerNavigator();
 
 const UserManagement = () => {
+    const handleNavigation = (name) => {
+        SetRole(name);
+    };
     return (
         <Drawer.Navigator
             initialRouteName={"User Dashboard"}
@@ -57,17 +61,12 @@ const UserManagement = () => {
             <Drawer.Screen name={"User Dashboard"} component={UserDashboard} />
             <Drawer.Screen
                 name={"Member Management"}
-                initialParams={{ role: "member" }}
                 component={UserRoleManagement}
+                options={{}}
             />
-            <Drawer.Screen
-                name={"Coach Management"}
-                initialParams={{ role: "coach" }}
-                component={UserRoleManagement}
-            />
+            <Drawer.Screen name={"Coach Management"} component={UserRoleManagement} />
             <Drawer.Screen
                 name={"Trasurer Management"}
-                initialParams={{ role: "treasurer" }}
                 component={UserRoleManagement}
             />
         </Drawer.Navigator>

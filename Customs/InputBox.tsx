@@ -19,7 +19,6 @@ interface InputViewProps {
     modal?: boolean;
     title: string;
     error: string | null;
-    key?: number;
 }
 
 const InputView: React.FC<PropsWithChildren<InputViewProps>> = ({
@@ -33,11 +32,10 @@ const InputView: React.FC<PropsWithChildren<InputViewProps>> = ({
     error,
     modal,
     children,
-    key,
 }) => {
     const isModal = modal || false;
     return (
-        <View key={key || 0}>
+        <View>
             <View style={isModal ? Styles.ModalInputBox : Styles.InputBox}>
                 <Text style={isModal ? Styles.ModalInputBoxText : Styles.InputBoxText}>
                     {title}

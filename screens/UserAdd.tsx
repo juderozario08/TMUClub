@@ -25,6 +25,7 @@ import { DefaultParamList, UserType } from "../Customs/Types";
 import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
 import { ACTION } from "../Customs/Enums";
 import { Action, Role } from "../Globals/AppValues";
+import ModalView from "../Customs/ModalView";
 
 type UserAddNavType = NativeStackNavigationProp<DefaultParamList>;
 
@@ -75,7 +76,7 @@ const UserAdd: React.FC<UserAddProps> = ({ navigation }) => {
             .then(() => {
                 console.log("User created successfully.");
                 if (Action === ACTION.SIGNUP) navigation.navigate("Login" as never);
-                setIsModalVisible(true);
+                else setIsModalVisible(true);
             })
             .catch((err) => {
                 if (err.response && err.response.status === 409)
@@ -132,26 +133,27 @@ const UserAdd: React.FC<UserAddProps> = ({ navigation }) => {
             <Text style={[Styles.MainText, styles.headerText]}>{title}</Text>
             <View style={styles.inputView}>
                 {inputBoxes.map((inp, idx) => (
-                    <InputView
-                        key={idx}
-                        value={inp.value}
-                        onChangeText={inp.onChangeText}
-                        completionType={inp.autoComplete}
-                        keyboardType={inp.keyboardType}
-                        capitalize={"none"}
-                        title={inp.placeholder}
-                        error={inp.value.length < 1 || inp.valid() ? null : inp.errorText}
-                    >
-                        {inp.value.length < 1 ? null : inp.valid() ? (
-                            <CheckSquare
-                                stroke={"green"}
-                                fill={"none"}
-                                style={Styles.Feather}
-                            />
-                        ) : (
-                            <X stroke={"red"} fill={"none"} style={Styles.Feather} />
-                        )}
-                    </InputView>
+                    <View key={idx}>
+                        <InputView
+                            value={inp.value}
+                            onChangeText={inp.onChangeText}
+                            completionType={inp.autoComplete}
+                            keyboardType={inp.keyboardType}
+                            capitalize={"none"}
+                            title={inp.placeholder}
+                            error={inp.value.length < 1 || inp.valid() ? null : inp.errorText}
+                        >
+                            {inp.value.length < 1 ? null : inp.valid() ? (
+                                <CheckSquare
+                                    stroke={"green"}
+                                    fill={"none"}
+                                    style={Styles.Feather}
+                                />
+                            ) : (
+                                <X stroke={"red"} fill={"none"} style={Styles.Feather} />
+                            )}
+                        </InputView>
+                    </View>
                 ))}
 
                 {/*This part is for the passwords*/}
@@ -193,18 +195,25 @@ const UserAdd: React.FC<UserAddProps> = ({ navigation }) => {
                         handleSignup();
                     }
                 }}
-                title={"Sign Up"}
+                title={title}
             />
-            <View style={Styles.BottomTextContainer}>
-                <Text style={Styles.BottomText}>Already have an account?</Text>
-                <Pressable
-                    onPress={() => {
-                        navigation.navigate("Login" as never);
-                    }}
-                >
-                    <Text style={Styles.BottomTextLink}>{" Login"}</Text>
-                </Pressable>
-            </View>
+            {Action === ACTION.SIGNUP ? (
+                <View style={Styles.BottomTextContainer}>
+                    <Text style={Styles.BottomText}>Already have an account?</Text>
+                    <Pressable
+                        onPress={() => {
+                            navigation.navigate("Login" as never);
+                        }}
+                    >
+                        <Text style={Styles.BottomTextLink}>{" Login"}</Text>
+                    </Pressable>
+                </View>
+            ) : null}
+            <ModalView
+                title={title}
+                isVisible={isModalVisible}
+                setIsVisible={setIsModalVisible}
+            ></ModalView>
         </KeyboardAvoidingView>
     );
 };
