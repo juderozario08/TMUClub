@@ -1,4 +1,3 @@
-import { ACTION, ROLE } from "../Customs/Enums";
 import { ClassType, PaymentType, UserType } from "../Customs/Types";
 
 let AllMembers: UserType[] = [];
@@ -16,15 +15,7 @@ let UserInfo: UserType = {
     phoneNumber: "",
     balance: 0,
 };
-let Action = ACTION.SIGNUP;
-let Role: string = ROLE.Member;
 
-const SetRole = (role: string) => {
-    Role = role;
-};
-const SetAction = (action: number) => {
-    Action = action;
-};
 const SetUser = (values: any) => {
     UserInfo = values;
 };
@@ -56,14 +47,10 @@ export {
     Payments,
     Classes,
     UserInfo,
-    Action,
-    Role,
     SetUser,
     SetAllMembers,
     SetAllCoaches,
     SetAllTreasurers,
     SetPayments,
     SetClasses,
-    SetRole,
-    SetAction,
 };

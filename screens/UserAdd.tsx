@@ -23,8 +23,7 @@ import InputView from "../Customs/InputBox";
 import SubmitButton from "../Customs/SubmitButton";
 import { DefaultParamList, UserType } from "../Customs/Types";
 import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
-import { ACTION } from "../Customs/Enums";
-import { Action, Role } from "../Globals/AppValues";
+import { ACTION, ROLE } from "../Customs/Enums";
 import ModalView from "../Customs/ModalView";
 
 type UserAddNavType = NativeStackNavigationProp<DefaultParamList>;
@@ -38,7 +37,7 @@ const UserAdd: React.FC<UserAddProps> = ({ navigation }) => {
         name: "",
         email: "",
         password: "",
-        role: Role,
+        role: ROLE.Member,
         classes: [],
         payments: [],
         phoneNumber: "",

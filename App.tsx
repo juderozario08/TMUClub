@@ -8,8 +8,9 @@ import TreasurerNavigator from "./screens/TreasurerScreens/TreasurerNavigator";
 import MemberNavigator from "./screens/MemberScreens/MemberNavigator";
 import CoachNavigator from "./screens/CoachScreens/CoachNavigator";
 import { ACTION, ROLE } from "./Customs/Enums";
+import { StackNavType } from "./Customs/Types";
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<StackNavType>();
 
 export default function App() {
     return (
@@ -22,10 +23,10 @@ export default function App() {
                 }}
             >
                 {/* <Stack.Screen name="Login" component={Login} /> */}
-                <Stack.Screen name="SignUp" component={UserAdd} />
-                {/* <Stack.Screen name="Member Screen" component={MemberNavigator} /> */}
-                {/* <Stack.Screen name="Coach Screen" component={CoachNavigator} /> */}
-                <Stack.Screen name="Treasurer Screen" component={TreasurerNavigator} />
+                {/* <Stack.Screen name="SignUp" component={UserAdd} /> */}
+                {/* <Stack.Screen name="MemberScreen" component={MemberNavigator} /> */}
+                {/* <Stack.Screen name="CoachScreen" component={CoachNavigator} /> */}
+                <Stack.Screen name="TreasurerScreen" component={TreasurerNavigator} />
             </Stack.Navigator>
             <StatusBar style="auto" hideTransitionAnimation="slide" />
         </NavigationContainer>

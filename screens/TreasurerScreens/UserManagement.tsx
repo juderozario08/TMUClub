@@ -1,21 +1,28 @@
 import React from "react";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import {
+    createDrawerNavigator,
+    DrawerScreenProps,
+} from "@react-navigation/drawer";
 import UserDashboard from "./UserDashboard";
 import { backgroundColor, headerTitleColor, theme } from "../../Colors";
 import { Menu } from "react-native-feather";
 import { Pressable } from "react-native";
 import UserRoleManagement from "./UserRoleManagement";
-import { SetRole } from "../../Globals/AppValues";
+import { ACTION, ROLE } from "../../Customs/Enums";
+
+type DrawerNavType = {
+    UserDashboard: undefined;
+    MemberManagement: { role: string; action: number };
+    CoachManagement: { role: string; action: number };
+    TreasurerManagement: { role: string; action: number };
+};
 
 const Drawer = createDrawerNavigator();
 
 const UserManagement = () => {
-    const handleNavigation = (name) => {
-        SetRole(name);
-    };
     return (
         <Drawer.Navigator
-            initialRouteName={"User Dashboard"}
+            initialRouteName={"UserDashboard"}
             screenOptions={({ navigation }) => ({
                 headerTitleStyle: {
                     color: headerTitleColor,
@@ -58,16 +65,21 @@ const UserManagement = () => {
                 swipeEnabled: true,
             })}
         >
-            <Drawer.Screen name={"User Dashboard"} component={UserDashboard} />
+            <Drawer.Screen name={"UserDashboard"} component={UserDashboard} />
             <Drawer.Screen
-                name={"Member Management"}
+                name={"MemberManagement"}
                 component={UserRoleManagement}
-                options={{}}
+                initialParams={{ role: ROLE.Member, action: ACTION.ADD }}
             />
-            <Drawer.Screen name={"Coach Management"} component={UserRoleManagement} />
             <Drawer.Screen
-                name={"Trasurer Management"}
+                name={"CoachManagement"}
                 component={UserRoleManagement}
+                initialParams={{ role: ROLE.Coach, action: ACTION.ADD }}
+            />
+            <Drawer.Screen
+                name={"TreasurerManagement"}
+                component={UserRoleManagement}
+                initialParams={{ role: ROLE.Treasurer, action: ACTION.ADD }}
             />
         </Drawer.Navigator>
     );

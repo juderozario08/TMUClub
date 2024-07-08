@@ -2,35 +2,24 @@ import React, { useEffect, useState } from "react";
 import { Pressable, SafeAreaView, Text } from "react-native";
 import { Styles } from "../../Colors";
 import UserList from "../../Customs/UserList";
-import { UserType } from "../../Customs/Types";
+import { DefaultParamList, DrawerNavType, UserType } from "../../Customs/Types";
 import { AllCoaches, AllMembers, AllTreasurers } from "../../Globals/AppValues";
-import { RouteProp, useRoute } from "@react-navigation/native";
-import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { FetchUsers } from "../../Globals/FetchFunctions";
+import { DrawerNavigationProp } from "@react-navigation/drawer";
 
-type RootDrawerParamList = {
-    "Member Management": { role: string };
-    "Coach Management": { role: string };
-    "Trasurer Management": { role: string };
-};
-
-type UserManagementRouteProp = RouteProp<
-    RootDrawerParamList,
-    "Member Management" | "Coach Management" | "Trasurer Management"
->;
-
-type UserManagementNavigationProp = DrawerNavigationProp<
-    RootDrawerParamList,
-    "Member Management" | "Coach Management" | "Trasurer Management"
->;
+type UserManagementNavType = DrawerNavigationProp<DefaultParamList>;
 
 interface UserManagementProps {
-    navigation: UserManagementNavigationProp;
+    navigation: UserManagementNavType;
+    route: any;
 }
 
-const UserRoleManagement: React.FC<UserManagementProps> = () => {
-    const router = useRoute<UserManagementRouteProp>();
-    const role = router.params?.role;
+const UserRoleManagement: React.FC<UserManagementProps> = ({
+    navigation,
+    route,
+}) => {
+    const role: string = route.params.role;
+    const action: number = route.params.action;
 
     const getGlobalUsers = (): UserType[] => {
         if (role === "member") return AllMembers;
@@ -50,7 +39,15 @@ const UserRoleManagement: React.FC<UserManagementProps> = () => {
             style={[Styles.MainContainer, { alignItems: "stretch", paddingTop: 0 }]}
         >
             <UserList users={allUsers} setUsers={undefined} none_found={""} />
-            <Pressable style={Styles.SubmitButton} onPress={() => { }}>
+            <Pressable
+                style={[Styles.SubmitButton, { paddingBottom: 10 }]}
+                onPress={() => {
+                    console.log(navigation.getParent()?.navigate("Classes")); // This targets the
+                    {
+                        /* navigation.navigate(role[0].toUpperCase() + role.slice(1) + "Add"); */
+                    }
+                }}
+            >
                 <Text style={Styles.SubmitButtonText}>Add User</Text>
             </Pressable>
         </SafeAreaView>
