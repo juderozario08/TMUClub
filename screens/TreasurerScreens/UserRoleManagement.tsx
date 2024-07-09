@@ -18,20 +18,19 @@ const UserRoleManagement: React.FC<UserManagementProps> = ({
     navigation,
     route,
 }) => {
-    const role: string = route.params.role;
-    const action: number = route.params.action;
+    const role: string = route.params.action;
 
     const getGlobalUsers = (): UserType[] => {
-        if (role === "member") return AllMembers;
-        else if (role === "coach") return AllCoaches;
-        else if (role === "treasurer") return AllTreasurers;
+        if (route.params.role === "member") return AllMembers;
+        else if (route.params.role === "coach") return AllCoaches;
+        else if (route.params.role === "treasurer") return AllTreasurers;
         else return [];
     };
 
     const [allUsers, setAllUsers] = useState<UserType[]>(getGlobalUsers());
 
     useEffect(() => {
-        if (allUsers.length === 0) FetchUsers(setAllUsers, role);
+        if (allUsers.length === 0) FetchUsers(setAllUsers, route.params.role);
     }, []);
 
     return (
@@ -42,10 +41,9 @@ const UserRoleManagement: React.FC<UserManagementProps> = ({
             <Pressable
                 style={[Styles.SubmitButton, { paddingBottom: 10 }]}
                 onPress={() => {
-                    console.log(navigation.getParent()?.navigate("Classes")); // This targets the
-                    {
-                        /* navigation.navigate(role[0].toUpperCase() + role.slice(1) + "Add"); */
-                    }
+                    navigation.navigate(
+                        (role[0].toUpperCase() + role.slice(1) + "Add") as never,
+                    );
                 }}
             >
                 <Text style={Styles.SubmitButtonText}>Add User</Text>
