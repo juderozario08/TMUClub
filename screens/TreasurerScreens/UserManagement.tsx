@@ -68,16 +68,25 @@ const UserManagement = () => {
             <Drawer.Screen name={"UserDashboard"} component={UserDashboard} />
             <Drawer.Screen
                 name={"MemberManagement"}
+                options={{
+                    title: "Member Management",
+                }}
                 component={UserRoleManagement}
                 initialParams={{ role: ROLE.Member, action: ACTION.ADD }}
             />
             <Drawer.Screen
                 name={"CoachManagement"}
+                options={{
+                    title: "Coach Management",
+                }}
                 component={UserRoleManagement}
                 initialParams={{ role: ROLE.Coach, action: ACTION.ADD }}
             />
             <Drawer.Screen
                 name={"TreasurerManagement"}
+                options={{
+                    title: "Treasurer Management",
+                }}
                 component={UserRoleManagement}
                 initialParams={{ role: ROLE.Treasurer, action: ACTION.ADD }}
             />

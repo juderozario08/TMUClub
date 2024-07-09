@@ -43,11 +43,11 @@ const Login: React.FC<LoginProps> = ({ navigation }): React.JSX.Element => {
                 if (res.status === 200) {
                     AsyncStorage.setItem("id", res.data.id);
                     if (res.data.role === "member") {
-                        navigation.navigate(`Member Screen` as never);
+                        navigation.navigate(`MemberScreen` as never);
                     } else if (res.data.role === "coach") {
-                        navigation.navigate("Coach Screen" as never);
+                        navigation.navigate("CoachScreen" as never);
                     } else if (res.data.role === "treasurer") {
-                        navigation.navigate("Treasurer Screen" as never);
+                        navigation.navigate("TreasurerScreen" as never);
                     }
                 }
             })

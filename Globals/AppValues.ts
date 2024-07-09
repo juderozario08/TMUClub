@@ -40,6 +40,13 @@ const SetClasses = (values: any[]) => {
     Classes = values;
 };
 
+const GetUsersByRole = (role: string) => {
+    if (role === "member") return AllMembers;
+    else if (role === "coach") return AllCoaches;
+    else if (role === "treasurer") return AllTreasurers;
+    else return [];
+};
+
 export {
     AllMembers,
     AllCoaches,
@@ -53,4 +60,5 @@ export {
     SetAllTreasurers,
     SetPayments,
     SetClasses,
+    GetUsersByRole,
 };

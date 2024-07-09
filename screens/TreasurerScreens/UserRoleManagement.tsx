@@ -18,7 +18,7 @@ const UserRoleManagement: React.FC<UserManagementProps> = ({
     navigation,
     route,
 }) => {
-    const role: string = route.params.action;
+    const role: string = route.params?.role;
 
     const getGlobalUsers = (): UserType[] => {
         if (route.params.role === "member") return AllMembers;
@@ -41,9 +41,12 @@ const UserRoleManagement: React.FC<UserManagementProps> = ({
             <Pressable
                 style={[Styles.SubmitButton, { paddingBottom: 10 }]}
                 onPress={() => {
-                    navigation.navigate(
-                        (role[0].toUpperCase() + role.slice(1) + "Add") as never,
-                    );
+                    navigation
+                        .getParent()
+                        ?.getParent()
+                        ?.navigate(
+                            (role[0].toUpperCase() + role.slice(1) + "Add") as never,
+                        );
                 }}
             >
                 <Text style={Styles.SubmitButtonText}>Add User</Text>
