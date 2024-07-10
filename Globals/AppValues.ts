@@ -1,3 +1,4 @@
+import { ROLE } from "../Customs/Enums";
 import { ClassType, PaymentType, UserType } from "../Customs/Types";
 
 let AllMembers: UserType[] = [];
@@ -6,59 +7,65 @@ let AllTreasurers: UserType[] = [];
 let Payments: PaymentType[] = [];
 let Classes: ClassType[] = [];
 let UserInfo: UserType = {
-    name: "",
-    email: "",
-    password: "",
-    role: "",
-    classes: [],
-    payments: [],
-    phoneNumber: "",
-    balance: 0,
+	name: "",
+	email: "",
+	password: "",
+	role: "",
+	classes: [],
+	payments: [],
+	phoneNumber: "",
+	balance: 0,
 };
 
 const SetUser = (values: any) => {
-    UserInfo = values;
+	UserInfo = values;
 };
 
 const SetAllMembers = (values: any[]) => {
-    AllMembers = values;
+	AllMembers = values;
 };
 
 const SetAllCoaches = (values: any[]) => {
-    AllCoaches = values;
+	AllCoaches = values;
 };
 
 const SetAllTreasurers = (values: any[]) => {
-    AllTreasurers = values;
+	AllTreasurers = values;
 };
 
 const SetPayments = (values: any[]) => {
-    Payments = values;
+	Payments = values;
 };
 
 const SetClasses = (values: any[]) => {
-    Classes = values;
+	Classes = values;
 };
 
 const GetUsersByRole = (role: string) => {
-    if (role === "member") return AllMembers;
-    else if (role === "coach") return AllCoaches;
-    else if (role === "treasurer") return AllTreasurers;
-    else return [];
+	if (role === ROLE.Member) return AllMembers;
+	else if (role === ROLE.Coach) return AllCoaches;
+	else return AllTreasurers;
+};
+
+const SetUsersByRole = (value: any[], role: string) => {
+	if (role === ROLE.Member) SetAllMembers(value);
+	else if (role === ROLE.Coach) SetAllCoaches(value);
+	else SetAllTreasurers(value);
 };
 
 export {
-    AllMembers,
-    AllCoaches,
-    AllTreasurers,
-    Payments,
-    Classes,
-    UserInfo,
-    SetUser,
-    SetAllMembers,
-    SetAllCoaches,
-    SetAllTreasurers,
-    SetPayments,
-    SetClasses,
-    GetUsersByRole,
+	AllMembers,
+	AllCoaches,
+	AllTreasurers,
+	Payments,
+	Classes,
+	UserInfo,
+	SetUser,
+	SetAllMembers,
+	SetAllCoaches,
+	SetAllTreasurers,
+	SetPayments,
+	SetClasses,
+	GetUsersByRole,
+	SetUsersByRole,
 };

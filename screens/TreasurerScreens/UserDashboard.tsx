@@ -7,6 +7,7 @@ import { FetchAllUsers } from "../../Globals/FetchFunctions";
 import { UserType } from "../../Customs/Types";
 import { AllCoaches, AllMembers, AllTreasurers } from "../../Globals/AppValues";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
+import { ROLE } from "../../Customs/Enums";
 
 type RootStackParamList = {};
 type UserDashboardType = DrawerNavigationProp<RootStackParamList>;
@@ -42,6 +43,7 @@ const UserDashboard: React.FC<UserDashboardProps> = () => {
                         users={allMembers}
                         none_found={"members"}
                         setUsers={setAllMembers}
+                        role={ROLE.Member}
                     />
                     <Text style={[Styles.MainText, { paddingVertical: 20 }]}>
                         Coaches
