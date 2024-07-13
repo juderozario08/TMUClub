@@ -47,9 +47,11 @@ const UserList: React.FC<PropsWithChildren<UserListProps>> = ({
 			.then(() => {
 				setUsers(users.filter((el) => el._id !== selectedUser._id));
 				SetUsersByRole(users, role || ROLE.Member);
+				setIsModalVisible(false);
 				console.log("User deleted");
 			})
 			.catch((err) => {
+				console.log(selectedUser._id);
 				console.log(err.message);
 			});
 	};
@@ -75,6 +77,7 @@ const UserList: React.FC<PropsWithChildren<UserListProps>> = ({
 						key={index}
 						style={[Styles.Cards]}
 						onPress={() => {
+							console.log(el._id);
 							setSelectedUser(el);
 							setIsModalVisible(true);
 						}}
@@ -173,7 +176,6 @@ const UserList: React.FC<PropsWithChildren<UserListProps>> = ({
 							style={{ backgroundColor: "red", borderRadius: 20 }}
 							onPress={() => {
 								deleteUser();
-								setIsModalVisible(false);
 							}}
 						>
 							<Text style={{ color: "white", padding: 10 }}>Delete</Text>
