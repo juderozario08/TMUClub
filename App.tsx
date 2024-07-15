@@ -32,7 +32,7 @@ export default function App() {
 				<Stack.Screen name="TreasurerScreen" component={TreasurerNavigator} />
 				<Stack.Screen
 					name="MemberAdd"
-					initialParams={{ role: ROLE.Member, action: ACTION.ADD }}
+					initialParams={{ role: ROLE.MEMBER, action: ACTION.ADD }}
 					options={{
 						title: "Add Member",
 					}}
@@ -40,12 +40,12 @@ export default function App() {
 				/>
 				<Stack.Screen
 					name="CoachAdd"
-					initialParams={{ role: ROLE.Coach, action: ACTION.ADD }}
+					initialParams={{ role: ROLE.COACH, action: ACTION.ADD }}
 					component={UserAdd}
 				/>
 				<Stack.Screen
 					name="TreasurerAdd"
-					initialParams={{ role: ROLE.Treasurer, action: ACTION.ADD }}
+					initialParams={{ role: ROLE.TREASURER, action: ACTION.ADD }}
 					component={UserAdd}
 				/>
 			</Stack.Navigator>

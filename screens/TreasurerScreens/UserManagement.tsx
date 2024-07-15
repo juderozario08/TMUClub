@@ -62,7 +62,7 @@ const UserManagement = () => {
 					title: "Member Management",
 				}}
 				component={UserRoleManagement}
-				initialParams={{ role: ROLE.Member }}
+				initialParams={{ role: ROLE.MEMBER }}
 			/>
 			<Drawer.Screen
 				name={"CoachManagement"}
@@ -70,7 +70,7 @@ const UserManagement = () => {
 					title: "Coach Management",
 				}}
 				component={UserRoleManagement}
-				initialParams={{ role: ROLE.Coach }}
+				initialParams={{ role: ROLE.COACH }}
 			/>
 			<Drawer.Screen
 				name={"TreasurerManagement"}
@@ -78,7 +78,7 @@ const UserManagement = () => {
 					title: "Treasurer Management",
 				}}
 				component={UserRoleManagement}
-				initialParams={{ role: ROLE.Treasurer }}
+				initialParams={{ role: ROLE.TREASURER }}
 			/>
 		</Drawer.Navigator>
 	);

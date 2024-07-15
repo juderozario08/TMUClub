@@ -39,7 +39,7 @@ const UserAdd: React.FC<UserAddProps> = ({ navigation, route }) => {
 		name: "",
 		email: "",
 		password: "",
-		role: ROLE.Member,
+		role: ROLE.MEMBER,
 		classes: [],
 		payments: [],
 		phoneNumber: "",

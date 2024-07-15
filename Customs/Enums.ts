@@ -1,12 +1,14 @@
 enum ACTION {
-    SIGNUP = 0,
-    ADD = 1,
+	SIGNUP = 0,
+	ADD = 1,
+	DELETE = 2,
+	EDIT = 3,
 }
 
 enum ROLE {
-    Treasurer = "treasurer",
-    Coach = "coach",
-    Member = "member",
+	TREASURER = "treasurer",
+	COACH = "coach",
+	MEMBER = "member",
 }
 
 export { ACTION, ROLE };

@@ -42,14 +42,14 @@ const SetClasses = (values: any[]) => {
 };
 
 const GetUsersByRole = (role: string) => {
-	if (role === ROLE.Member) return AllMembers;
-	else if (role === ROLE.Coach) return AllCoaches;
+	if (role === ROLE.MEMBER) return AllMembers;
+	else if (role === ROLE.COACH) return AllCoaches;
 	else return AllTreasurers;
 };
 
 const SetUsersByRole = (value: any[], role: string) => {
-	if (role === ROLE.Member) SetAllMembers(value);
-	else if (role === ROLE.Coach) SetAllCoaches(value);
+	if (role === ROLE.MEMBER) SetAllMembers(value);
+	else if (role === ROLE.COACH) SetAllCoaches(value);
 	else SetAllTreasurers(value);
 };
 

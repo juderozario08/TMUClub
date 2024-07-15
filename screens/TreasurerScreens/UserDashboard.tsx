@@ -43,7 +43,7 @@ const UserDashboard: React.FC<UserDashboardProps> = () => {
 						users={allMembers}
 						none_found={"members"}
 						setUsers={setAllMembers}
-						role={ROLE.Member}
+						role={ROLE.MEMBER}
 					/>
 					<Text style={[Styles.MainText, { paddingVertical: 20 }]}>
 						Coaches

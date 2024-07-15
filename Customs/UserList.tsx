@@ -46,7 +46,7 @@ const UserList: React.FC<PropsWithChildren<UserListProps>> = ({
 			.delete(`${UserURI}/${selectedUser._id}`)
 			.then(() => {
 				setUsers(users.filter((el) => el._id !== selectedUser._id));
-				SetUsersByRole(users, role || ROLE.Member);
+				SetUsersByRole(users, role || ROLE.MEMBER);
 				setIsModalVisible(false);
 				console.log("User deleted");
 			})
