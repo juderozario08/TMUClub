@@ -14,13 +14,13 @@ app.use(require("express").json());
 app.use(cors());
 
 mongoose
-    .connect(process.env.DB_URL)
-    .then(() => {
-        console.log("Connected to MongoDB");
-    })
-    .catch((err) => {
-        console.log("Error: ", err);
-    });
+	.connect(process.env.DB_URL)
+	.then(() => {
+		console.log("Connected to MongoDB");
+	})
+	.catch((err) => {
+		console.log("Error: ", err);
+	});
 
 app.use(`/signup`, userSignUpRouter);
 app.use(`/login`, userLoginRouter);
@@ -31,5 +31,5 @@ app.use(`/payments`, paymentRouter);
 
 const port = 3000;
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+	console.log(`Server is running on port ${port}`);
 });
