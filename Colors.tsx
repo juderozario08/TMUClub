@@ -83,7 +83,9 @@ export const Styles = StyleSheet.create({
 	BottomText: { color: bottomBoxTextColor, fontSize: 14 },
 	BottomTextLink: { fontSize: 14, color: "#0284C7" },
 	SubmitButton: {
-		width: "100%",
+		width: "80%",
+		alignSelf: "center",
+		justifyContent: "center",
 		backgroundColor: "#0284C7",
 		borderRadius: 24,
 		paddingVertical: 14,

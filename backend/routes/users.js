@@ -64,7 +64,12 @@ router
 			if (!user) {
 				return res.status(404).send("User not found.");
 			}
-			res.status(200).send(user);
+			const users = await User.find({});
+			res.status(200).send({
+				status: "success",
+				message: "User updated successfully.",
+				users: users,
+			});
 		} catch (err) {
 			console.log(err);
 			res.status(500).send({ status: "error", message: err.message });
@@ -77,7 +82,12 @@ router
 			if (!user) {
 				return res.status(404).send("User not found.");
 			}
-			res.status(200).send("User deleted successfully.");
+			const users = await User.find({});
+			res.status(200).send({
+				status: "success",
+				message: "User deleted successfully.",
+				users: users,
+			});
 		} catch (err) {
 			console.log(err);
 			res.status(500).send({ status: "error", message: err.message });

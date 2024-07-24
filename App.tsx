@@ -24,7 +24,7 @@ export default function App() {
 				{/* <Stack.Screen name="Login" component={Login} />
 				<Stack.Screen
 					name="SignUp"
-					initialParams={{ role: ROLE.Member, action: ACTION.SIGNUP }}
+					initialParams={{ role: ROLE.MEMBER, action: ACTION.SIGNUP }}
 					component={UserAdd}
 				/>
 				<Stack.Screen name="MemberScreen" component={MemberNavigator} />

@@ -1,54 +1,57 @@
 import { Date } from "mongoose";
 
 type UserType = {
-    name: string;
-    email: string;
-    password: string;
-    role: string;
-    classes: any[];
-    payments: any[];
-    balance: number;
-    phoneNumber: string;
+	_id: any;
+	name: string;
+	email: string;
+	password: string;
+	role: string;
+	classes: any[];
+	payments: any[];
+	balance: number;
+	phoneNumber: string;
 };
 
 type ClassType = {
-    title: string;
-    coach: any;
-    date: Date;
-    participants: any[];
-    cost: number;
+	_id: any;
+	title: string;
+	coach: any;
+	date: Date;
+	participants: any[];
+	cost: number;
 };
 
 type PaymentType = {
-    cls: any;
-    user: any;
-    card: string;
-    date: Date;
-    amount: number;
+	_id: any;
+	cls: any;
+	user: any;
+	card: string;
+	date: Date;
+	amount: number;
 };
 
 type DrawerNavType = {
-    UserDashboard: undefined;
-    MemberManagement: { role: string; action: number };
-    CoachManagement: { role: string; action: number };
-    TreasurerManagement: { role: string; action: number };
+	UserDashboard: undefined;
+	MemberManagement: { role: string; action: number };
+	CoachManagement: { role: string; action: number };
+	TreasurerManagement: { role: string; action: number };
 };
 
 type StackNavType = {
-    Login: undefined;
-    SignUp: undefined;
-    MemberScreen: undefined;
-    CoachScreen: undefined;
-    TreasurerScreen: undefined;
+	Login: undefined;
+	SignUp: undefined;
+	MemberScreen: undefined;
+	CoachScreen: undefined;
+	TreasurerScreen: undefined;
 };
 
 type DefaultParamList = {};
 
 export type {
-    UserType,
-    ClassType,
-    PaymentType,
-    DefaultParamList,
-    DrawerNavType,
-    StackNavType,
+	UserType,
+	ClassType,
+	PaymentType,
+	DefaultParamList,
+	DrawerNavType,
+	StackNavType,
 };

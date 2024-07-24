@@ -7,20 +7,6 @@ import {
     UsersURI,
     ClassesURI,
 } from "./Routes";
-import {
-    AllCoaches,
-    AllMembers,
-    AllTreasurers,
-    Classes,
-    Payments,
-    SetAllCoaches,
-    SetAllMembers,
-    SetAllTreasurers,
-    SetClasses,
-    SetPayments,
-    SetUser,
-    UserInfo,
-} from "./AppValues";
 import { ROLE } from "../Customs/Enums";
 
 async function FetchUser(setUser: any) {
@@ -32,64 +18,18 @@ async function FetchUser(setUser: any) {
     await axios
         .get(`${UserURI}/${id}`)
         .then((res: any) => {
-            SetUser(res.data);
-            setUser(UserInfo);
+            setUser(res.data);
         })
         .catch((err: any) => {
             console.log(err.message);
         });
 }
 
-const FetchMembers = async (setAllMembers: any) => {
+const FetchUsersByRole = async (setUsers: any, role: string) => {
     await axios
-        .get(`${UserRoleURI}/member`)
+        .get(`${UserRoleURI}/${role}`)
         .then((res: any) => {
-            SetAllMembers(res.data);
-            setAllMembers(AllMembers);
-        })
-        .catch((err: any) => {
-            console.log(err.message);
-        });
-};
-
-const FetchCoaches = async (setAllCoaches: any) => {
-    await axios
-        .get(`${UserRoleURI}/coach`)
-        .then((res: any) => {
-            SetAllCoaches(res.data);
-            setAllCoaches(AllCoaches);
-        })
-        .catch((err: any) => {
-            console.log(err.message);
-        });
-};
-
-const FetchTreasurers = async (setAllTreasurers: any) => {
-    await axios
-        .get(`${UserRoleURI}/treasurer`)
-        .then((res: any) => {
-            SetAllTreasurers(res.data);
-            setAllTreasurers(AllTreasurers);
-        })
-        .catch((err: any) => {
-            console.log(err.message);
-        });
-};
-
-const FetchUsers = async (setUsers: any, role: string) => {
-    await axios
-        .get(`${UserRoleURI}/treasurer`)
-        .then((res: any) => {
-            if (role === ROLE.MEMBER) {
-                SetAllMembers(res.data);
-                setUsers(AllMembers);
-            } else if (role === ROLE.COACH) {
-                SetAllCoaches(res.data);
-                setUsers(AllCoaches);
-            } else {
-                SetAllTreasurers(res.data);
-                setUsers(AllTreasurers);
-            }
+            setUsers(res.data);
         })
         .catch((err: any) => {
             console.log(err.message);
@@ -99,17 +39,14 @@ const FetchUsers = async (setUsers: any, role: string) => {
 const FetchAllUsers = async (
     setAllMembers: any,
     setAllCoaches: any,
-    setAllTreaurers: any,
+    setAllTreasurers: any,
 ) => {
     await axios
         .get(`${UsersURI}`)
         .then((res: any) => {
-            SetAllMembers(res.data.members);
-            SetAllCoaches(res.data.coaches);
-            SetAllTreasurers(res.data.treasurers);
-            setAllMembers(AllMembers);
-            setAllCoaches(AllCoaches);
-            setAllTreaurers(AllTreasurers);
+            setAllMembers(res.data.members);
+            setAllCoaches(res.data.coaches);
+            setAllTreasurers(res.data.treasurers);
         })
         .catch((err: any) => {
             console.log(err.message);
@@ -120,8 +57,7 @@ const FetchPayments = async (setPayments: any) => {
     await axios
         .get(`${PaymentURI}`)
         .then((res: any) => {
-            SetPayments(res.data.members);
-            setPayments(Payments);
+            setPayments(res.data.members);
         })
         .catch((err: any) => {
             console.log(err.message);
@@ -132,8 +68,7 @@ const FetchClasses = async (setClasses: any) => {
     await axios
         .get(`${ClassesURI}`)
         .then((res: any) => {
-            SetClasses(res.data.members);
-            setClasses(Classes);
+            setClasses(res.data.members);
         })
         .catch((err: any) => {
             console.log(err.message);
@@ -141,11 +76,8 @@ const FetchClasses = async (setClasses: any) => {
 };
 export {
     FetchUser,
-    FetchMembers,
-    FetchCoaches,
-    FetchTreasurers,
     FetchPayments,
     FetchClasses,
-    FetchUsers,
     FetchAllUsers,
+    FetchUsersByRole,
 };

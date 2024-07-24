@@ -12,13 +12,13 @@ const UserRoleURI = `${Uri}/users/role`;
 const PaymentURI = `${Uri}/payments`;
 
 export {
-    ClassCreateURI,
-    ClassesURI,
-    UsersURI,
-    LoginURI,
-    PaymentURI,
-    SignUpURI,
-    Uri as URI,
-    UserURI,
-    UserRoleURI,
+	ClassCreateURI,
+	ClassesURI,
+	UsersURI,
+	LoginURI,
+	PaymentURI,
+	SignUpURI,
+	Uri,
+	UserURI,
+	UserRoleURI,
 };

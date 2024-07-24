@@ -1,59 +1,75 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Pressable, SafeAreaView, ScrollView, Text } from "react-native";
 import { Styles } from "../../Colors";
 import UserList from "../../Customs/UserList";
 import { DefaultParamList, UserType } from "../../Customs/Types";
-import { GetUsersByRole, SetUsersByRole } from "../../Globals/AppValues";
-import { FetchUsers } from "../../Globals/FetchFunctions";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { useFocusEffect } from "@react-navigation/native";
+import { RoleBasedChange, SetRoleBasedChange } from "../../Globals/Functions";
+import { FetchUsersByRole } from "../../Globals/FetchFunctions";
+import { ROLE } from "../../Customs/Enums";
 
 type UserManagementNavType = DrawerNavigationProp<DefaultParamList>;
 
 interface UserManagementProps {
-    navigation: UserManagementNavType;
-    route: any;
+	navigation: UserManagementNavType;
+	route: any;
 }
 
 const UserRoleManagement: React.FC<UserManagementProps> = ({
-    navigation,
-    route,
+	navigation,
+	route,
 }) => {
-    const role: string = route.params?.role;
+	const role: string = route.params?.role;
 
-    const [allUsers, setAllUsers] = useState<UserType[]>(GetUsersByRole(role));
+	const [allUsers, setAllUsers] = useState<UserType[]>([]);
 
-    useFocusEffect(() => {
-        if (allUsers.length === 0) FetchUsers(setAllUsers, route.params.role);
-        SetUsersByRole(allUsers, role);
-    });
+	useEffect(() => {
+		FetchUsersByRole(setAllUsers, role || ROLE.MEMBER);
+	}, []);
 
-    return (
-        <SafeAreaView
-            style={[Styles.MainContainer, { alignItems: "stretch", paddingTop: 0 }]}
-        >
-            <ScrollView contentContainerStyle={Styles.CardsContainer}>
-                <UserList
-                    users={allUsers}
-                    setUsers={setAllUsers}
-                    none_found={"No Members Yet"}
-                />
-                <Pressable
-                    style={[Styles.SubmitButton, { paddingBottom: 10 }]}
-                    onPress={() => {
-                        navigation
-                            .getParent()
-                            ?.getParent()
-                            ?.navigate(
-                                (role[0].toUpperCase() + role.slice(1) + "Add") as never,
-                            );
-                    }}
-                >
-                    <Text style={Styles.SubmitButtonText}>Add User</Text>
-                </Pressable>
-            </ScrollView>
-        </SafeAreaView>
-    );
+	useFocusEffect(() => {
+		if (RoleBasedChange) {
+			FetchUsersByRole(setAllUsers, role || ROLE.MEMBER);
+			SetRoleBasedChange(false);
+		}
+	});
+
+	return (
+		<SafeAreaView
+			style={[
+				Styles.MainContainer,
+				{ alignItems: "stretch", paddingTop: 0, paddingBottom: 20 },
+			]}
+		>
+			<ScrollView contentContainerStyle={Styles.CardsContainer}>
+				<UserList
+					users={allUsers}
+					setUsers={setAllUsers}
+					none_found={
+						role === "member"
+							? "Members"
+							: role === "coach"
+								? "Coaches"
+								: "Treasurers"
+					}
+				/>
+			</ScrollView>
+			<Pressable
+				style={Styles.SubmitButton}
+				onPress={() => {
+					navigation
+						.getParent()
+						?.getParent()
+						?.navigate(
+							(role[0].toUpperCase() + role.slice(1) + "Add") as never,
+						);
+				}}
+			>
+				<Text style={Styles.SubmitButtonText}>Add User</Text>
+			</Pressable>
+		</SafeAreaView>
+	);
 };
 
 export default UserRoleManagement;
