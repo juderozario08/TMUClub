@@ -1,25 +1,22 @@
 import React, { useState } from "react";
 import { Text, Pressable, View } from "react-native";
+import { Styles } from "../Colors";
 import axios from "axios";
-import { Styles } from "../../../Colors";
-import { ClassCreateURI } from "../../../Globals/Routes";
-import ModalView from "../../../Customs/ModalView";
+import { ClassCreateURI } from "../Globals/Routes";
+import ModalView from "../Customs/ModalView";
+import { ClassType } from "../Customs/Types";
+import { DefaultClass } from "../Customs/DefaultValues";
 
 const ClassManagement = () => {
     const [isVisible, setIsVisible] = useState(false);
-    const [classData, setClassData] = useState({
-        title: "",
-        coach: "",
-        date: new Date(),
-        participants: "",
-    });
+    const [classData, setClassData] = useState<ClassType>(DefaultClass);
     const [error, setError] = useState(null);
 
     const addClass = async () => {
         await axios
             .post(`${ClassCreateURI}`, classData)
-            .then((res) => {
-                if (res.status === 200) console.log("Class Added");
+            .then((_) => {
+                console.log("Class Added");
             })
             .catch((err) => {
                 setError(err.message);

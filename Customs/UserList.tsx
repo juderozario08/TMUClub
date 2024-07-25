@@ -6,6 +6,10 @@ import axios from "axios";
 import { UserURI } from "../Globals/Routes";
 import InputView from "./InputBox";
 import { SetRoleBasedChange, SetDashboardChange } from "../Globals/Functions";
+import { UserType } from "./Types";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { DefaultUser } from "./DefaultValues";
+import { FetchUser } from "../Globals/FetchFunctions";
 
 interface UserListProps {
 	users: any[];
@@ -18,14 +22,9 @@ const UserList: React.FC<PropsWithChildren<UserListProps>> = ({
 	users,
 	setUsers,
 	none_found,
-	role,
 }) => {
-	const [selectedUser, setSelectedUser] = useState<any>({
-		name: "" as string,
-		email: "" as string,
-		phoneNumber: "" as string,
-		role: role,
-	});
+	const [selectedUser, setSelectedUser] = useState<UserType>(DefaultUser);
+	const [mainUser, setMainUser] = useState<UserType>(DefaultUser);
 	const [isChanging, setIsChanging] = useState<boolean>(false);
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
@@ -43,18 +42,23 @@ const UserList: React.FC<PropsWithChildren<UserListProps>> = ({
 	};
 
 	const deleteUser = async () => {
-		await axios
-			.delete(`${UserURI}/${selectedUser._id}`)
-			.then((res: any) => {
-				SetRoleBasedChange(true);
-				SetDashboardChange(true);
-				setUsers(res.data.users);
-				setIsModalVisible(false);
-				console.log(res.data.message);
-			})
-			.catch((err) => {
-				console.log(err.message);
-			});
+		if (selectedUser._id === mainUser._id) {
+			console.log("Cannot delete main user.");
+			return;
+		} else {
+			await axios
+				.delete(`${UserURI}/${selectedUser._id}`)
+				.then((res: any) => {
+					SetRoleBasedChange(true);
+					SetDashboardChange(true);
+					setUsers(res.data.users);
+					setIsModalVisible(false);
+					console.log(res.data.message);
+				})
+				.catch((err) => {
+					console.log(err.message);
+				});
+		}
 	};
 
 	const handleChange = (text: any, type: string) => {
@@ -65,6 +69,10 @@ const UserList: React.FC<PropsWithChildren<UserListProps>> = ({
 			};
 		});
 	};
+
+	useEffect(() => {
+		FetchUser(setMainUser);
+	}, []);
 
 	return (
 		<ScrollView
