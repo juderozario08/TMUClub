@@ -12,44 +12,44 @@ import { ACTION, ROLE } from "./Customs/Enums";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-	return (
-		<NavigationContainer>
-			<Stack.Navigator
-				screenOptions={{
-					headerShown: false,
-					animation: "fade_from_bottom",
-					autoHideHomeIndicator: true,
-				}}
-			>
-				{/* <Stack.Screen name="Login" component={Login} /> */}
-				{/* <Stack.Screen */}
-				{/* 	name="SignUp" */}
-				{/* 	initialParams={{ role: ROLE.MEMBER, action: ACTION.SIGNUP }} */}
-				{/* 	component={UserAdd} */}
-				{/* /> */}
-				{/* <Stack.Screen name="MemberScreen" component={MemberNavigator} /> */}
-				{/* <Stack.Screen name="CoachScreen" component={CoachNavigator} /> */}
-				<Stack.Screen name="TreasurerScreen" component={TreasurerNavigator} />
-				<Stack.Screen
-					name="MemberAdd"
-					initialParams={{ role: ROLE.MEMBER, action: ACTION.ADD }}
-					options={{
-						title: "Add Member",
-					}}
-					component={UserAdd}
-				/>
-				<Stack.Screen
-					name="CoachAdd"
-					initialParams={{ role: ROLE.COACH, action: ACTION.ADD }}
-					component={UserAdd}
-				/>
-				<Stack.Screen
-					name="TreasurerAdd"
-					initialParams={{ role: ROLE.TREASURER, action: ACTION.ADD }}
-					component={UserAdd}
-				/>
-			</Stack.Navigator>
-			<StatusBar style="auto" hideTransitionAnimation="slide" />
-		</NavigationContainer>
-	);
+    return (
+        <NavigationContainer>
+            <Stack.Navigator
+                screenOptions={{
+                    headerShown: false,
+                    animation: "fade_from_bottom",
+                    autoHideHomeIndicator: true,
+                }}
+            >
+                {/* <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen
+                    name="SignUp"
+                    initialParams={{ role: ROLE.MEMBER, action: ACTION.SIGNUP }}
+                    component={UserAdd}
+                />
+                <Stack.Screen name="MemberScreen" component={MemberNavigator} />
+                <Stack.Screen name="CoachScreen" component={CoachNavigator} /> */}
+                <Stack.Screen name="TreasurerScreen" component={TreasurerNavigator} />
+                <Stack.Screen
+                    name="MemberAdd"
+                    initialParams={{ role: ROLE.MEMBER, action: ACTION.ADD }}
+                    options={{
+                        title: "Add Member",
+                    }}
+                    component={UserAdd}
+                />
+                <Stack.Screen
+                    name="CoachAdd"
+                    initialParams={{ role: ROLE.COACH, action: ACTION.ADD }}
+                    component={UserAdd}
+                />
+                <Stack.Screen
+                    name="TreasurerAdd"
+                    initialParams={{ role: ROLE.TREASURER, action: ACTION.ADD }}
+                    component={UserAdd}
+                />
+            </Stack.Navigator>
+            <StatusBar style="auto" hideTransitionAnimation="slide" />
+        </NavigationContainer>
+    );
 }
