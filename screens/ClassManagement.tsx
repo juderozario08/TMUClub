@@ -1,23 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, Pressable, View, TextInput } from "react-native";
 import { Styles } from "../Colors";
 import axios from "axios";
 import { ClassCreateURI } from "../Globals/Routes";
 import ModalView from "../Customs/ModalView";
-import { ClassType } from "../Customs/Types";
-import { DefaultClass } from "../Customs/DefaultValues";
-import { Date } from "mongoose";
+import { ClassType, UserType } from "../Customs/Types";
+import { DefaultClass, DefaultUser } from "../Customs/DefaultValues";
+import { FetchUsersByRole } from "../Globals/FetchFunctions";
+import { Dropdown } from "react-native-element-dropdown";
 
 const ClassManagement = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [classData, setClassData] = useState<ClassType>(DefaultClass);
+    const [classes, setClasses] = useState<ClassType[]>([]);
+    const [coaches, setCoaches] = useState<UserType[]>([]);
+    const [coach, setCoach] = useState<UserType>(DefaultUser);
+    const [members, setMembers] = useState<UserType[]>([]);
     const [error, setError] = useState(null);
 
     const addClass = async () => {
         await axios
             .post(`${ClassCreateURI}`, classData)
             .then((_) => {
-                console.log("Class Added");
+                console.log("Class Added", coach, classes, members);
             })
             .catch((err) => {
                 setError(err.message);
@@ -31,9 +36,13 @@ const ClassManagement = () => {
         }));
     };
 
+    useEffect(() => {
+        FetchUsersByRole(setCoaches, "coach");
+        FetchUsersByRole(setMembers, "member");
+    }, []);
+
     return (
         <View style={Styles.MainContainer}>
-            <Text style={Styles.MainText}>Class Management</Text>
             <View style={Styles.SubmitButtonView}>
                 <Pressable
                     style={Styles.SubmitButton}
@@ -47,8 +56,8 @@ const ClassManagement = () => {
                 setIsVisible={setIsVisible}
                 title="Add Class"
             >
-                <View>
-                    <View style={Styles.InputBox}>
+                <View style={{ gap: 10 }}>
+                    <View style={Styles.ModalInputBox}>
                         <Text style={Styles.InputBoxText}>{"Title: "}</Text>
                         <TextInput
                             style={Styles.Input}
@@ -60,7 +69,7 @@ const ClassManagement = () => {
                         />
                     </View>
                     {/* Must be a drop down menu for the number of coaches available  */}
-                    <View style={Styles.InputBox}>
+                    <View style={Styles.ModalInputBox}>
                         <Text style={Styles.InputBoxText}>{"Coach: "}</Text>
                         <TextInput
                             style={Styles.Input}
@@ -72,7 +81,7 @@ const ClassManagement = () => {
                         />
                     </View>
                     {/* Take it as a date input */}
-                    <View style={Styles.InputBox}>
+                    <View style={Styles.ModalInputBox}>
                         <Text style={Styles.InputBoxText}>{"Date: "}</Text>
                         <TextInput
                             style={Styles.Input}
@@ -84,7 +93,7 @@ const ClassManagement = () => {
                         />
                     </View>
                     {/* participants must be a multi select option */}
-                    <View style={Styles.InputBox}>
+                    <View style={Styles.ModalInputBox}>
                         <Text style={Styles.InputBoxText}>{"Participants: "}</Text>
                         <TextInput
                             style={Styles.Input}
@@ -94,8 +103,16 @@ const ClassManagement = () => {
                             value={classData.participants as any}
                             placeholderTextColor="lightgray"
                         />
+                        <Dropdown
+                            data={members}
+                            labelField="name"
+                            valueField="name"
+                            onChange={(item) => {
+                                setCoach(item);
+                            }}
+                        />
                     </View>
-                    <View style={Styles.InputBox}>
+                    <View style={Styles.ModalInputBox}>
                         <Text style={Styles.InputBoxText}>{"Cost: "}</Text>
                         <TextInput
                             style={Styles.Input}
@@ -105,6 +122,15 @@ const ClassManagement = () => {
                             keyboardType={"number-pad"}
                             value={classData.cost as any}
                         />
+                    </View>
+                    <Text>{error}</Text>
+                    <View style={{ alignItems: "center" }}>
+                        <Pressable
+                            style={[Styles.ModalButton, { marginTop: 5 }]}
+                            onPress={addClass}
+                        >
+                            <Text style={Styles.ModalButtonText}>Submit</Text>
+                        </Pressable>
                     </View>
                 </View>
             </ModalView>

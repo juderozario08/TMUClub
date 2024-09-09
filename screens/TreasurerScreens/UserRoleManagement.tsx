@@ -12,64 +12,64 @@ import { ROLE } from "../../Customs/Enums";
 type UserManagementNavType = DrawerNavigationProp<DefaultParamList>;
 
 interface UserManagementProps {
-	navigation: UserManagementNavType;
-	route: any;
+    navigation: UserManagementNavType;
+    route: any;
 }
 
 const UserRoleManagement: React.FC<UserManagementProps> = ({
-	navigation,
-	route,
+    navigation,
+    route,
 }) => {
-	const role: string = route.params?.role;
+    const role: string = route.params?.role;
 
-	const [allUsers, setAllUsers] = useState<UserType[]>([]);
+    const [allUsers, setAllUsers] = useState<UserType[]>([]);
 
-	useEffect(() => {
-		FetchUsersByRole(setAllUsers, role || ROLE.MEMBER);
-	}, []);
+    useEffect(() => {
+        FetchUsersByRole(setAllUsers, role || ROLE.MEMBER);
+    }, []);
 
-	useFocusEffect(() => {
-		if (RoleBasedChange) {
-			FetchUsersByRole(setAllUsers, role || ROLE.MEMBER);
-			SetRoleBasedChange(false);
-		}
-	});
+    useFocusEffect(() => {
+        if (RoleBasedChange) {
+            FetchUsersByRole(setAllUsers, role || ROLE.MEMBER);
+            SetRoleBasedChange(false);
+        }
+    });
 
-	return (
-		<SafeAreaView
-			style={[
-				Styles.MainContainer,
-				{ alignItems: "stretch", paddingTop: 0, paddingBottom: 20 },
-			]}
-		>
-			<ScrollView contentContainerStyle={Styles.CardsContainer}>
-				<UserList
-					users={allUsers}
-					setUsers={setAllUsers}
-					none_found={
-						role === "member"
-							? "Members"
-							: role === "coach"
-								? "Coaches"
-								: "Treasurers"
-					}
-				/>
-			</ScrollView>
-			<Pressable
-				style={Styles.SubmitButton}
-				onPress={() => {
-					navigation
-						.getParent()
-						?.getParent()
-						?.navigate(
-							(role[0].toUpperCase() + role.slice(1) + "Add") as never,
-						);
-				}}
-			>
-				<Text style={Styles.SubmitButtonText}>Add User</Text>
-			</Pressable>
-		</SafeAreaView>
-	);
+    return (
+        <SafeAreaView
+            style={[
+                Styles.MainContainer,
+                { alignItems: "stretch", paddingTop: 0, paddingBottom: 20 },
+            ]}
+        >
+            <ScrollView contentContainerStyle={Styles.CardsContainer}>
+                <UserList
+                    users={allUsers}
+                    setUsers={setAllUsers}
+                    none_found={
+                        role === "member"
+                            ? "Members"
+                            : role === "coach"
+                                ? "Coaches"
+                                : "Treasurers"
+                    }
+                />
+            </ScrollView>
+            <Pressable
+                style={[Styles.SubmitButton, { marginTop: -5 }]}
+                onPress={() => {
+                    navigation
+                        .getParent()
+                        ?.getParent()
+                        ?.navigate(
+                            (role[0].toUpperCase() + role.slice(1) + "Add") as never,
+                        );
+                }}
+            >
+                <Text style={Styles.SubmitButtonText}>Add User</Text>
+            </Pressable>
+        </SafeAreaView>
+    );
 };
 
 export default UserRoleManagement;
