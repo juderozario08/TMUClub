@@ -91,6 +91,16 @@ export const Styles = StyleSheet.create({
         paddingVertical: 14,
         marginTop: 40,
     },
+    Dropdown: {
+        flexDirection: "row",
+        backgroundColor: defaultInputBoxBackgroundColor,
+        width: "100%",
+        borderWidth: 1,
+        borderRadius: 15,
+        color: defaultModalTextColor,
+        borderColor: 'gray',
+        paddingHorizontal: 8,
+    },
     SubmitButtonText: {
         color: "white",
         textAlign: "center",

@@ -21,14 +21,14 @@ export default function App() {
                     autoHideHomeIndicator: true,
                 }}
             >
-                {/* <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen
                     name="SignUp"
                     initialParams={{ role: ROLE.MEMBER, action: ACTION.SIGNUP }}
                     component={UserAdd}
                 />
                 <Stack.Screen name="MemberScreen" component={MemberNavigator} />
-                <Stack.Screen name="CoachScreen" component={CoachNavigator} /> */}
+                <Stack.Screen name="CoachScreen" component={CoachNavigator} />
                 <Stack.Screen name="TreasurerScreen" component={TreasurerNavigator} />
                 <Stack.Screen
                     name="MemberAdd"

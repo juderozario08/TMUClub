@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, Pressable, View, TextInput } from "react-native";
+import { Text, Pressable, View, TextInput, StyleSheet } from "react-native";
 import { Styles } from "../Colors";
 import axios from "axios";
 import { ClassCreateURI } from "../Globals/Routes";
@@ -17,6 +17,7 @@ const ClassManagement = () => {
     const [coach, setCoach] = useState<UserType>(DefaultUser);
     const [members, setMembers] = useState<UserType[]>([]);
     const [error, setError] = useState(null);
+    const [isFocus, setIsFocus] = useState<boolean>(false)
 
     const addClass = async () => {
         await axios
@@ -70,14 +71,27 @@ const ClassManagement = () => {
                     </View>
                     {/* Must be a drop down menu for the number of coaches available  */}
                     <View style={Styles.ModalInputBox}>
-                        <Text style={Styles.InputBoxText}>{"Coach: "}</Text>
-                        <TextInput
-                            style={Styles.Input}
-                            onChangeText={(text) => {
-                                handleTextChange("coach", text);
+                        <Dropdown
+                            style={[Styles.Dropdown, isFocus && { borderColor: 'blue' }]}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            inputSearchStyle={styles.inputSearchStyle}
+                            data={coaches}
+                            search
+                            maxHeight={300}
+                            labelField="name"
+                            valueField="_id"
+                            placeholder={'Select Coach'}
+                            searchPlaceholder="Search..."
+                            value={coach || "Select a coach: "}
+                            onFocus={() => {
+                                FetchUsersByRole(setCoaches, "coach");
+                                setIsFocus(true)
                             }}
-                            value={classData.coach}
-                            placeholderTextColor="lightgray"
+                            onChange={item => {
+                                setCoach(item);
+                                setIsFocus(false)
+                            }}
                         />
                     </View>
                     {/* Take it as a date input */}
@@ -95,18 +109,12 @@ const ClassManagement = () => {
                     {/* participants must be a multi select option */}
                     <View style={Styles.ModalInputBox}>
                         <Text style={Styles.InputBoxText}>{"Participants: "}</Text>
-                        <TextInput
-                            style={Styles.Input}
-                            onChangeText={(text) => {
-                                handleTextChange("participants", text);
-                            }}
-                            value={classData.participants as any}
-                            placeholderTextColor="lightgray"
-                        />
                         <Dropdown
+                            search
+                            style={Styles.ModalInputBox}
                             data={members}
                             labelField="name"
-                            valueField="name"
+                            valueField="_id"
                             onChange={(item) => {
                                 setCoach(item);
                             }}
@@ -139,3 +147,33 @@ const ClassManagement = () => {
 };
 
 export default ClassManagement;
+
+const styles = StyleSheet.create({
+    icon: {
+        marginRight: 5,
+    },
+    label: {
+        position: 'absolute',
+        backgroundColor: 'white',
+        left: 22,
+        top: 8,
+        zIndex: 999,
+        paddingHorizontal: 8,
+        fontSize: 14,
+    },
+    placeholderStyle: {
+        fontSize: 16,
+        color: "gray"
+    },
+    selectedTextStyle: {
+        fontSize: 16,
+    },
+    iconStyle: {
+        width: 20,
+        height: 20,
+    },
+    inputSearchStyle: {
+        height: 40,
+        fontSize: 16,
+    },
+});
